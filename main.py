@@ -356,7 +356,6 @@ def compute_score(solution_str: str, ground_truth: str, eval_type_text: str):
             pred_list = get_n_elements(pred_res, qtype_len, False)  # Get first qtype_len answers
             check_res = [eval_router(pred_list[ref_i], ref_v, eval_type[ref_i]) for ref_i, ref_v in enumerate(ref_list)]
             true_num3 = sum(check_res)
-        print(true_num, true_num2, true_num3, qtype_len)
         res_score = max(true_num, true_num2, true_num3) / qtype_len
 
     except Exception as e:
@@ -421,6 +420,6 @@ if __name__ == "__main__":
     pre = "sdfsdf\\boxed{[[\"仓鼠\"],[\"仓鼠\", \"蝾螈\"],[\"仓鼠\", \"蝾螈\"],[\"仓鼠\"],[\"仓鼠\", \"蝾螈\"],[\"仓鼠\", \"乌龟\"],[\"蝾螈\", \"变色龙\"],[\"仓鼠\", \"蝾螈\"],[\"变色龙\"]]};sdfsdf"
     ref = "[['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '蝾螈'], ['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '乌龟'], ['蝾螈', '变色龙'], ['仓鼠', '蝾螈'], ['变色龙']]\n"
     print(compute_score(pre, ref, 'oua_nominal'))  # true
-
+    
     execution_time = time.time() - start_time
     print(f"Code execution time: {execution_time:.6f} seconds")
