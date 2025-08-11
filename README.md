@@ -177,3 +177,7 @@ When adding new evaluation types:
 ## License
 
 This evaluation framework is part of the PuzzleClone project and is licensed under the Apache 2.0 License.
+
+## Acknowledgments
+
+Our evaluation code is partially modified from [LIMO](https://github.com/GAIR-NLP/LIMO). We thank their team for their valuable contributions to the community.

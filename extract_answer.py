@@ -30,7 +30,7 @@ def extract_answer(pred_str: str, flag: str = "boxed", last: bool = False) -> an
         for ans in pred_str.split(flag)[1:]:
             pred = ""
             if len(ans) == 0:
-                return []
+                return "" if last else [""]
             elif ans[0] == "{":
                 stack = 1
                 a = ""
