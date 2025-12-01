@@ -1,0 +1,6 @@
+{
+    "and": {
+        "greater than": 3,
+        "less than": 1
+    }
+}

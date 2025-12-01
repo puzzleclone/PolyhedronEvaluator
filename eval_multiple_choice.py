@@ -9,8 +9,10 @@ supporting both single and multiple correct answer scenarios.
 
 import re
 from typing import List, Optional, Tuple
+from functools import lru_cache
 
 
+@lru_cache(maxsize=10000)
 def normalize_answer(answer: str) -> List[Optional[str]]:
     """
     Normalize multiple choice answer.
@@ -36,6 +38,7 @@ def normalize_answer(answer: str) -> List[Optional[str]]:
     return [option, text_answer]
 
 
+@lru_cache(maxsize=10000)
 def option_equal(pre: str, ref: str) -> bool:
     """
     Compare two multiple choice answers.
@@ -65,26 +68,49 @@ def option_equal(pre: str, ref: str) -> bool:
     else:
         return False
 
-def multi_answers_MCQ(pre, ref):
+
+@lru_cache(maxsize=10000)
+def extract_letters(answer: str) -> List[str]:
+    """
+    Extract all letter options from an answer string.
+    
+    Args:
+        answer: Answer string to extract letters from
+    """
+    return ''.join(sorted(list(set([c.upper() for c in answer if c.isalpha()]))))
+
+
+@lru_cache(maxsize=10000)
+def multi_answers_MCQ(pre, ref, score_type: str = 'hard'):
     """
         Compare multiple choice questions with multiple correct answers.
         
         Args:
             pre: Predicted answer string
             ref: Reference answer string
+            score_type: 'hard' for strict matching, 'soft' for partial credit (zero for wrong or multiple selections, partial credit for partially correct)
             
         Returns:
-            True if all letters in reference are present in prediction
+            True if all letters in reference are present in prediction (for 'hard'),
+            or a float score representing the proportion of correct letters (for 'soft').
     """
-
-    special_chars = set(r';,./、。，‘’；：“”《》？:<>?\n\t\\')
+    pre_letters = extract_letters(pre)
+    ref_letters = extract_letters(ref)
     
-    cleaned_chars = [char for char in pre if char not in special_chars]
-
-    pre = ''.join(cleaned_chars)
-    pre_letters = sorted([c.lower() for c in pre if c.isalpha()])
-    ref_letters = sorted(ref.lower())
-    return pre_letters == ref_letters
+    if score_type == 'hard':
+        return pre_letters == ref_letters
+    
+    # 'soft': zero for wrong or multiple selections, partial credit for partially correct
+    if len(pre_letters) > len(ref_letters):
+        return 0.0
+    if len(pre_letters) == len(ref_letters):
+        return pre_letters == ref_letters
+    correct_count = 0
+    for c in pre_letters:
+        if c not in ref_letters:
+            return 0.0
+        correct_count += 1
+    return correct_count / max(len(ref_letters), 1)
 
 
 if __name__ == "__main__":

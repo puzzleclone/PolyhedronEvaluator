@@ -11,8 +11,9 @@ from typing import List, Any
 import json_repair
 from word2number import w2n
 import cn2an
+from functools import lru_cache
 
-
+@lru_cache(maxsize=10000)
 def convert_word_number(text: str) -> str:
     """
     Convert word numbers (both Chinese and English) to Arabic numerals.
@@ -25,7 +26,8 @@ def convert_word_number(text: str) -> str:
     """
     # First step: Convert Chinese numbers to Arabic numerals using cn2an
     try:
-        text = cn2an.transform(text, "cn2an")
+        if len(text) < 300:
+            text = cn2an.transform(text, "cn2an")
     except Exception:
         pass  # If cn2an fails, skip this step
 
@@ -72,7 +74,7 @@ def extract_begin_end_content(text: str) -> str:
         else:
             return res
     else:
-        return ''
+        return text.strip()
 
 
 def parse_latex_table(latex_str: str) -> List[Any]:
@@ -97,14 +99,28 @@ def parse_latex_table(latex_str: str) -> List[Any]:
     content = extract_begin_end_content(latex_str)
     data = []
     if len(content):
-        if "\\hline" in content:
+        if "\\hline" in content: # 获取title和数组体
             header, content = content.split("\\hline")[:2]
+        
+        split_sep = None
+        if "\\\\" in content:
+            split_sep = "\\\\"
+        elif "\\n" in content:
+            split_sep = "\\n"
+
+
         if content.startswith('['):
             data = json_repair.loads(content)
+            if len(re.split(r'\W+', str(data))) <= len(re.split(r'\W+', content))//1.1:
+                if split_sep is not None:
+                    new_content = "[" + content.replace(split_sep, ",") + "]"
+                else:
+                    new_content = "[" + content + "]"
+                data = json_repair.loads(new_content)
         else:
             data = []
-            if "\\\\" in content:
-                d_tmp = content.split("\\\\")
+            if split_sep is not None:
+                d_tmp = content.split(split_sep)
                 for di in d_tmp:
                     if "&" in di:
                         di_da = []
@@ -119,6 +135,14 @@ def parse_latex_table(latex_str: str) -> List[Any]:
                         data.append(di.strip())
                 else:
                     data.append(content.strip())
+        
+        for index, di in enumerate(data):  # try to parse json strings into json data
+            if isinstance(di, str) and "[" in di and "]" in di:
+                try:
+                    di_data = json_repair.loads(di)
+                    data[index] = di_data
+                except:
+                    pass
     return data
 
 
@@ -139,7 +163,9 @@ if __name__ == "__main__":
         "\\begin{array}{c} [[1, 6, 9, 2, 4, 8, 5, 3, 7], \\\\ [4, 3, 2, 1, 5, 7, 6, 8, 9], \\\\ [5, 7, 8, 3, 6, 9, 1, 2, 4], \\\\ [3, 1, 2, 6, 7, 5, 8, 9, 4], \\\\ [9, 5, 6, 8, 3, 1, 4, 7, 2], \\\\ [8, 9, 7, 4, 2, 6, 3, 1, 5], \\\\ [6, 2, 1, 7, 3, 4, 9, 5, 8], \\\\ [7, 4, 5, 9, 8, 2, 3, 6, 1], \\\\ [2, 8, 3, 5, 1, 9, 7, 4, 6]] \\end{array}",
         "\\begin{array}{ccccccccc}2 & 1 & 6 & 5 & 3 & 8 & 7 & 4 & 9 \\\\4 & 5 & 6 & 极 & 2 & 7 & 8 & 3 & 1 \\\\7 & 8 & 9 & 3 & 4 & 1 & 6 & 2 & 5 \\\\1 & 2 & 5 & 4 & 3 & 6 & 8 & 9 & 7 \\\\3 & 6 & 2 & 8 & 7 & 9 & 1 & 5 & 4 \\\\8 & 4 & 7 & 2 & 1 & 3 & 5 & 9 & 6 \\\\5 & 6 & 4 & 1 & 7 & 2 & 9 & 8 & 3 \\\\7 & 9 & 3 & 6 & 8 & 5 & 4 & 2 & 1 \\\\9 & 3 & 8 & 7 & 5 & 4 & 1 & 6 & 2\\end{array}",
         "\\begin{array}{c} \\begin{bmatrix} 5 & 8 & 3 & 6 & 2 & 9 & 4 & 1 & 7 \\\\ 1 & 9 & 7 & 3 & 5 & 4 & 6 & 8 & 2 \\\\ 9 & 6 & 1 & 4 & 3 & 8 & 7 & 2 & 5 \\\\ 2 & 1 & 4 & 5 & 7 & 6 & 3 & 9 & 8 \\\\ 4 & 6 & 8 & 7 & 9 & 3 & 2 & 5 & 1 \\\\ 7 & 4 & 9 & 1 & 8 & 2 & 5 & 3 & 6 \\\\ 6 & 3 & 2 & 8 & 4 & 1 & 9 & 5 & 7 \\\\ 8 & 1 & 5 & 3 & 7 & 5 & 9 & 6 & 2 \\\\ 3 & 7 & 5 & 2 & 6 & 9 & 8 & 4 & 1 \\end{bmatrix} \\end{array}",
-        # "sdfsdf"
+        "\\begin{array}{ccc}\n[55, \\text{曾慧}, 16] \\n[56, \\text{杨丹丹}, 18] \\n[57, \\text{李莉/李佳}, 15] \\n[60, \\text{曾慧}, 14] \\n\\end{array}\n",
+        '[\\begin{align*}富洋: ["宠物猪", "兔子"], \\n吕玉: ["蜘蛛"], \\n郑飞: ["宠物猪"], \\n杨俊: ["仓鼠", "兔子", "蜘蛛"]\\end{align*}\\]',
+        '["乌龟"], ["乌龟"], ["乌龟", "宠物猪"], ["乌龟"]'
     ]
 
     # 测试解析
@@ -160,4 +186,6 @@ if __name__ == "__main__":
     Test9  [[1, 6, 9, 2, 4, 8, 5, 3, 7], [4, 3, 2, 1, 5, 7, 6, 8, 9], [5, 7, 8, 3, 6, 9, 1, 2, 4], [3, 1, 2, 6, 7, 5, 8, 9, 4], [9, 5, 6, 8, 3, 1, 4, 7, 2], [8, 9, 7, 4, 2, 6, 3, 1, 5], [6, 2, 1, 7, 3, 4, 9, 5, 8], [7, 4, 5, 9, 8, 2, 3, 6, 1], [2, 8, 3, 5, 1, 9, 7, 4, 6]]
     Test10  [['2', '1', '6', '5', '3', '8', '7', '4', '9'], ['4', '5', '6', '极', '2', '7', '8', '3', '1'], ['7', '8', '9', '3', '4', '1', '6', '2', '5'], ['1', '2', '5', '4', '3', '6', '8', '9', '7'], ['3', '6', '2', '8', '7', '9', '1', '5', '4'], ['8', '4', '7', '2', '1', '3', '5', '9', '6'], ['5', '6', '4', '1', '7', '2', '9', '8', '3'], ['7', '9', '3', '6', '8', '5', '4', '2', '1'], ['9', '3', '8', '7', '5', '4', '1', '6', '2']]
     Test11  [['5', '8', '3', '6', '2', '9', '4', '1', '7'], ['1', '9', '7', '3', '5', '4', '6', '8', '2'], ['9', '6', '1', '4', '3', '8', '7', '2', '5'], ['2', '1', '4', '5', '7', '6', '3', '9', '8'], ['4', '6', '8', '7', '9', '3', '2', '5', '1'], ['7', '4', '9', '1', '8', '2', '5', '3', '6'], ['6', '3', '2', '8', '4', '1', '9', '5', '7'], ['8', '1', '5', '3', '7', '5', '9', '6', '2'], ['3', '7', '5', '2', '6', '9', '8', '4', '1']]
+    Test12  [[55, 'text{曾慧}', 16], [56, 'text{杨丹丹}', 18], [57, 'text{李莉/李佳}', 15], [60, 'text{曾慧}', 14]]
+    Test13  [['宠物猪', '兔子'], ['蜘蛛'], ['宠物猪'], ['仓鼠', '兔子', '蜘蛛']]
     '''

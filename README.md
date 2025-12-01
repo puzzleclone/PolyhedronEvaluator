@@ -5,6 +5,7 @@ This directory contains a comprehensive evaluation framework for assessing Large
 ## Overview
 
 The evaluation framework is designed to handle complex answer formats including:
+
 - Multiple choice questions with single or multiple correct answers
 - Numerical computations and mathematical expressions
 - Text/nominal answers with normalization
@@ -23,8 +24,9 @@ The evaluation framework is designed to handle complex answer formats including:
 - **⚡ Performance Optimized**: Includes timeout handling and concurrent evaluation for large-scale assessments
 
 ## Installation
+
 ```bash
-git clone https://github.com/puzzleclone/PolyhedronEvaluator.git
+git clone https://github.com/HiThink-Research/PolyhedronEvaluator.git
 pip install -r requirements.txt
 ```
 
@@ -80,16 +82,19 @@ print(result)  # True
 ## Evaluation Types
 
 ### Basic Types
+
 - `"option"`: Multiple choice answers (A, B, C, etc.)
 - `"nominal"`: Text-based answers with normalization
 - `"numeral"`: Numerical computations and expressions
 
 ### Array Types
+
 - `"ordered array"`: Sequence-sensitive lists
-- `"unordered array"`: Order-independent sets  
+- `"unordered array"`: Order-independent sets
 - `"subset"`: Subset relationship validation
 
 ### Advanced Types
+
 - `"multi_answers_MCQ"`: Multiple correct options in multiple choice
 - `"ooa_nominal"`: Ordered outer, ordered inner arrays (nominal data)
 - `"oua_numeral"`: Ordered outer, unordered inner arrays (numerical data)
@@ -101,7 +106,7 @@ print(result)  # True
 ```
 PolyhedronEvaluator/
 ├── main.py                    # Main evaluation logic and routing
-├── extract_answer.py          # Answer extraction from model outputs  
+├── extract_answer.py          # Answer extraction from model outputs
 ├── eval_multiple_choice.py    # Multiple choice question evaluation
 ├── eval_nominal.py           # Text/name-based answer evaluation
 ├── eval_numeral.py           # Numerical answer evaluation with SymPy
@@ -113,16 +118,19 @@ PolyhedronEvaluator/
 ## Core Functions
 
 ### `compute_score(solution_str, ground_truth, eval_type_text)`
+
 Scoring function for reinforcement learning training with partial credit support.
 
 **Parameters:**
+
 - `solution_str`: Complete model output with potential multiple answers
 - `ground_truth`: Ground truth with potential multiple parts
 - `eval_type_text`: Comma-separated evaluation types
 
 **Returns:** Float score between 0.0 and 1.0 (suitable as RL reward)
 
-### `evaluation(prediction, ground_truth, eval_type_text)`  
+### `evaluation(prediction, ground_truth, eval_type_text)`
+
 Strict binary evaluation for model inference assessment.
 
 **Returns:** True if all parts are correct, False otherwise
@@ -139,7 +147,7 @@ Strict binary evaluation for model inference assessment.
 
 - Plain text answers
 - LaTeX mathematical expressions with `\boxed{}` notation
-- JSON arrays and objects  
+- JSON arrays and objects
 - LaTeX tables (`\begin{array}`, `\begin{bmatrix}`)
 - Mixed format responses with multiple `\boxed{}` sections
 - Comma/semicolon separated lists
@@ -148,8 +156,9 @@ Strict binary evaluation for model inference assessment.
 ## Error Handling
 
 The system includes robust error handling for:
+
 - ✅ Malformed JSON structures
-- ✅ Invalid LaTeX expressions  
+- ✅ Invalid LaTeX expressions
 - ✅ Missing or incomplete answers
 - ✅ Type conversion errors
 - ✅ Parsing failures
@@ -169,14 +178,14 @@ All evaluation functions return appropriate defaults (False/0.0) when errors occ
 When adding new evaluation types:
 
 1. Implement the evaluation logic in the appropriate `eval_*.py` file
-2. Add the type routing in `main.py`'s internal routing function  
+2. Add the type routing in `main.py`'s internal routing function
 3. Update the documentation with the new type
 4. Add comprehensive test cases to verify functionality
 5. Ensure proper error handling and edge case coverage
 
 ## License
 
-This evaluation framework is part of the PuzzleClone project and is licensed under the Apache 2.0 License.
+This evaluation framework is part of the [PuzzleClone](https://github.com/HiThink-Research/PuzzleClone) project and is licensed under the Apache 2.0 License.
 
 ## Acknowledgments
 

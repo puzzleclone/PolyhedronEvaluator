@@ -10,47 +10,32 @@ import json
 from typing import List, Optional, Union, Any
 
 import json_repair
+from functools import lru_cache
 
 try:
     from extract_answer import extract_answer
     from eval_utils import parse_latex_table
     from eval_multiple_choice import option_equal, multi_answers_MCQ
-    from eval_nominal import nominal_equal
+    from eval_nominal import nominal_equal , strict_nominal_equal
     from eval_numeral import numeral_equal
-    from eval_array import (order_array_equal, unorder_array_equal, 
-                           subset_array_equal, order_number_array_equal,
-                           unorder_number_array_equal)
+    from eval_array import (order_array_equal, unorder_array_equal,
+                           order_number_array_equal, unorder_number_array_equal,
+                           subset_array_equal)
 except ImportError:
     from .extract_answer import extract_answer
     from .eval_utils import parse_latex_table
     from .eval_multiple_choice import option_equal, multi_answers_MCQ
-    from .eval_nominal import nominal_equal
+    from .eval_nominal import nominal_equal , strict_nominal_equal
     from .eval_numeral import numeral_equal
-    from .eval_array import (order_array_equal, unorder_array_equal, 
-                            subset_array_equal, order_number_array_equal,
-                            unorder_number_array_equal)
+    from .eval_array import (order_array_equal, unorder_array_equal,
+                           order_number_array_equal, unorder_number_array_equal,
+                           subset_array_equal)
 
 
-def split_and_strip(text: str) -> List[str]:
-    """
-    Split and strip text based on common separators.
-    
-    Args:
-        text: Input text to split and strip
-        
-    Returns:
-        List of stripped text parts
-    """
-    if text.startswith("\\begin{"):
-        return parse_latex_table(text)
-
-    # Split using regex pattern for common separators
-    parts = re.split(r'[,;、，；和或]', text)
-    # If no splitting occurred, try backslash
-    if len(parts) <= 1:
-        parts = text.split("\\")
-    result = [part.strip() for part in parts if part.strip()]
-    return result
+DEBUG = False
+DEBUG_INFO = []
+from fractions import Fraction  # Convert float to fraction for debugging
+from itertools import permutations
 
 
 def is_option(ref: str) -> bool:
@@ -122,6 +107,34 @@ def is_multiple_query(ref: str) -> Optional[List[str]]:
                 return split_res
     return None
 
+@lru_cache(maxsize=10000)
+def split_and_strip(text: str) -> List[str]:
+    """
+    Split and strip text based on common separators.
+    
+    Args:
+        text: Input text to split and strip
+        
+    Returns:
+        List of stripped text parts
+    """
+    if text.startswith('[') and text.endswith(']'):
+        try:
+            return json_repair.loads(text)
+        except:
+            pass
+
+    if "\\begin{" in text:
+        return parse_latex_table(text)
+
+    # Split using regex pattern for common separators
+    parts = re.split(r'[,;、，；和或]', text)
+    # If no splitting occurred, try backslash
+    if len(parts) <= 1:
+        parts = text.split("\\")
+    result = [part.strip() for part in parts if part.strip()]
+    return result
+
 
 def parseArray(ref: str, pre: str) -> tuple[List[Any], List[Any]]:
     """
@@ -134,24 +147,86 @@ def parseArray(ref: str, pre: str) -> tuple[List[Any], List[Any]]:
     Returns:
         Tuple of (reference_data, prediction_data) as lists
     """
+    ref_clean = ref.replace("(", "[").replace(")", "]").replace("\\", "").lstrip("#")
+    pre_initial = pre.replace("(", "[").replace(")", "]").replace("“", '"').replace("”", '"').lstrip("#")
+    pre_clean = pre_initial.replace("\\", "")
+    if pre_clean.startswith('{[') and pre_clean.endswith(']}'):
+        pre_clean = '[' + pre_clean[1:-1] + ']'
     try:
-        ref_t = json.loads(ref.replace("\\", ""))
-        pre_t = json.loads(pre.replace("\\", ""))
+        ref_t = json.loads(ref_clean)
+        pre_t = json.loads(pre_clean)
     except (SyntaxError, ValueError):
         try:
-            ref_t = json_repair.loads(ref.replace("\\", ""))
-            if pre.startswith("\\begin{"):
-                pre_t = parse_latex_table(pre)
+            ref_t = json_repair.loads(ref_clean)
+            # if pre.startswith("\\begin{"):
+            if "\\begin{" in pre:
+                pre_t = parse_latex_table(pre_initial)
             else:
-                pre_t = json_repair.loads(pre.replace("\\", ""))
+                pre_t = json_repair.loads(pre_clean)
+                if len(re.split(r'\W+', str(pre_t))) <= len(re.split(r'\W+', pre_clean))//1.1:
+                    new_content = "[" + pre_clean + "]"
+                    pre_t = json_repair.loads(new_content)
         except json.JSONDecodeError:
             return [], []
-    if type(pre_t) == dict:
-        pre_t = list(pre_t.values())
+
+    # 兜底：保证都是 list，避免后面 str + list 之类的错误
+    if not isinstance(ref_t, list):
+        ref_t = [ref_t]
+    if not isinstance(pre_t, list):
+        if isinstance(pre_t, dict): # dict -> list
+            pre_t = list(pre_t.values())
+        else:
+            pre_t = [pre_t]
+
+    ref_len = len(ref_t)
+    pre_len = len(pre_t)
+    if pre_len < ref_len:
+        pre_t = pre_t + [None] * (ref_len - pre_len)
     return ref_t, pre_t
 
 
-def eval_router(pre: str, ref: str, eval_type: Optional[str] = None) -> bool:
+def average(scores: list[int|float]):
+    return sum(scores) / max(len(scores), 1)
+
+
+def comput_inner_array_score(pre_t: List[Any], ref_t: List[Any], f_score, score_type: str, array_type: str, indent=0) -> Union[bool, float]:
+    
+    if len(array_type) == 0:
+        return f_score(pre_t, ref_t, score_type)
+
+    if array_type[0] == 'o':  # ordered outer array
+        inner_scores = []
+        for index, ri in enumerate(ref_t):
+            if index >= len(pre_t) or not isinstance(pre_t[index], list):
+                inner_scores.append(0.0 if score_type == 'soft' else False)
+                continue
+            inner_scores.append(comput_inner_array_score(pre_t[index], ri, f_score, score_type, array_type[1:], indent=indent+1))
+
+        # If soft, average the scores; if hard, all must be True
+        score = average(inner_scores) if score_type == 'soft' else all(inner_scores)
+        if DEBUG:
+            indent_str = indent * "+" + " " if indent > 0 else ""
+            DEBUG_INFO.append((indent_str + "pre_t:", pre_t, "  inner_scores:", *[Fraction(si).limit_denominator(100) for si in inner_scores], "  answer_final_score:", Fraction(score).limit_denominator(100)))
+        return score
+
+    elif array_type[0] == 'u':  # unordered outer array
+        from itertools import permutations
+        all_permutations = permutations(pre_t)
+        possible_scores = set()
+        for perm in all_permutations:
+            score = comput_inner_array_score(list(perm), ref_t, f_score, score_type, 'o' + array_type[1:])
+            possible_scores.add(score)
+            if score == 1.0: # Perfect score found
+                break  # No need to check further if perfect score found
+        best_score = max(possible_scores)
+        if DEBUG:
+            indent_str = indent * "+" + " " if indent > 0 else ""
+            DEBUG_INFO.append((indent_str + "best_score:", Fraction(best_score).limit_denominator(100)))
+        return best_score
+
+
+@lru_cache(maxsize=10000)
+def eval_router(pre: str, ref: str, eval_type: Optional[str] = None, score_type: str = 'hard') -> bool:
     """
     Route evaluation to appropriate evaluator based on type.
     
@@ -159,16 +234,20 @@ def eval_router(pre: str, ref: str, eval_type: Optional[str] = None) -> bool:
         pre: Predicted answer
         ref: Reference (ground truth) answer
         eval_type: Evaluation type. Supported types:
-            - "nominal": Text-based answers
+            - "nominal": Text-based answers, converting word numbers to digits and ignoring punctuation and case
+            - "strict_nominal": Strict text-based answers with longest common substring scoring
             - "numeral": Numerical computations
-            - "option": Multiple choice options
-            - "ordered array": Sequence-sensitive lists
-            - "unordered array": Order-independent sets
+            - "option": Multiple choice options with single correct answer
+            - "multi_options": Multiple choice options with multiple correct answers
+            - "ordered array": Sequence-sensitive lists (same as "oa_nominal"), eg: [1,2,3]  ; A,B,C ; 
+            - "unordered array": Order-independent sets (same as "ua_nominal")
             - "subset": Subset relationship validation
-            - "multi_answers_MCQ": Multiple correct options
-            - "ooa_numeral": Ordered outer, ordered inner arrays (numerical)
-            - "oua_nominal": Ordered outer, unordered inner arrays (nominal)
-            - "uoa_nominal": Unordered outer, ordered inner arrays (nominal)
+            - "x*a_y": Nested array evaluation, where x indicates Ordered/Unordered array, which can be repeated for multiple levels; y indicates the type of inner array elements (e.g. nominal, numeral). For example:
+                - "ooa_numeral": Ordered outer, ordered inner arrays (numerical)
+                - "oua_nominal": Ordered outer, unordered inner arrays (nominal)
+                - "uoa_nominal": Unordered outer, ordered inner arrays (nominal)
+                - "oooa_numeral": Ordered → ordered → ordered arrays (numerical)
+        score_type: The strictness level (hard or soft) of evaluation. 
             
     Returns:
         True if prediction matches reference according to eval_type, False otherwise
@@ -183,76 +262,49 @@ def eval_router(pre: str, ref: str, eval_type: Optional[str] = None) -> bool:
         if eval_type == "option":
             return option_equal(pre, ref)
         if eval_type == "nominal":
-            return nominal_equal(pre, ref) 
+            return nominal_equal(pre, ref)
+        if eval_type == "strict_nominal":
+            return strict_nominal_equal(pre, ref, score_type)
         if eval_type == "numeral":
             return numeral_equal(pre, ref)
-        if eval_type == "multi_answers_MCQ":
-            return multi_answers_MCQ(pre, ref)
+        if eval_type == "multi_options":
+            return multi_answers_MCQ(pre, ref, score_type)
         if eval_type.startswith("order"):
             ref = split_and_strip(ref)
             pre = split_and_strip(pre)
-            return order_array_equal(pre, ref)
+            return order_array_equal(pre, ref, score_type)
         if eval_type.startswith("unorder"):
             ref = split_and_strip(ref)
             pre = split_and_strip(pre)
-            return unorder_array_equal(pre, ref)
+            return unorder_array_equal(pre, ref, score_type)
         if eval_type.startswith("subset"):
             ref = split_and_strip(ref)
             pre = split_and_strip(pre)
             return subset_array_equal(pre, ref)
-        if eval_type.startswith("ooa"):
-            ref_t, pre_t = parseArray(ref, pre)
-            list_sum = []
-            if len(ref_t) != len(pre_t):
-                return False
-            if eval_type.endswith("nominal"):
-                for index, _ in enumerate(ref_t):
-                    list_sum.append(order_array_equal(pre_t[index], ref_t[index]))
-                return all(list_sum)
-            elif eval_type.endswith("numeral"):
-                for index, _ in enumerate(ref_t):
-                    list_sum.append(order_number_array_equal(pre_t[index], ref_t[index]))
-                return all(list_sum)
-        if eval_type.startswith("oua"):
-            ref_t, pre_t = parseArray(ref, pre)
-            list_sum = []
-            if len(ref_t) != len(pre_t):
-                return False
-            if eval_type.endswith("nominal"):
-                for index, _ in enumerate(ref_t):
-                    list_sum.append(unorder_array_equal(pre_t[index], ref_t[index]))
-                return all(list_sum)
-            elif eval_type.endswith("numeral"):
-                for index, _ in enumerate(ref_t):
-                    list_sum.append(unorder_number_array_equal(pre_t[index], ref_t[index]))
-                return all(list_sum)
-        if eval_type.startswith("uoa"):
-            ref_t, pre_t = parseArray(ref, pre)
-            list_sum = []
-            if len(ref_t) != len(pre_t):
-                return False
-            if eval_type.endswith("nominal"):
-                for index, _ in enumerate(ref_t):
-                    if not any(ref_t[index] == pi for pi in pre_t):
-                        return False
-                    else:
-                        for pi in pre_t:
-                            if ref_t[index] == pi:
-                                list_sum.append(order_array_equal(pi, ref_t[index]))
-                            else:
-                                continue
-                return all(list_sum)
-            elif eval_type.endswith("numeral"):
-                for index, _ in enumerate(ref_t):
-                    if not any(ref_t[index] == pi for pi in pre_t):
-                        return False
-                    else:
-                        for pi in pre_t:
-                            if ref_t[index] == pi:
-                                list_sum.append(order_number_array_equal(pi, ref_t[index]))
-                            else:
-                                continue
-                return all(list_sum)
+        
+
+        if "a_" in eval_type:  # Nested array evaluation
+            f_score = None
+            et_before, et_after = eval_type.split("a_")
+            if et_before[-1] == "o":  # ordered inner array
+                if et_after == "nominal":
+                    f_score = order_array_equal
+                elif et_after == "numeral":
+                    f_score = order_number_array_equal
+            elif et_before[-1] == "u":  # unordered inner array
+                if et_after == "nominal":
+                    f_score = unorder_array_equal
+                elif et_after == "numeral":
+                    f_score = unorder_number_array_equal
+
+            if f_score is not None:
+                if len(et_before) == 1:
+                    ref_t = split_and_strip(ref)
+                    pre_t = split_and_strip(pre)
+                else:
+                    ref_t, pre_t = parseArray(ref, pre)
+                return comput_inner_array_score(pre_t, ref_t, f_score, score_type, et_before[:-1])
+
 
     # Auto-detection based on format
     if ref.startswith('[') and ref.endswith(']'):
@@ -273,49 +325,66 @@ def eval_router(pre: str, ref: str, eval_type: Optional[str] = None) -> bool:
     return numeral_equal(pre, ref)
 
 
-def get_n_elements(arr: List[Any], n: int, last: bool = True, fill_value: Any = None) -> List[Any]:
+def get_n_elements(arr: List[Any], n: int, start: Optional[int] = None, fill_value: Any = None) -> List[Any]:
     """
-    Get the last or first n elements from array, padding with fill_value if needed.
+    Get n elements from array starting from specified position, padding with fill_value if needed.
     
     Args:
         arr: Input array
         n: Number of elements to retrieve
-        last: If True, get last n elements; if False, get first n elements
+        start: Starting index (0-based). If None, get last n elements.
+               If positive, count from start; if negative, count from end.
         fill_value: Value to pad with if array has fewer than n elements
         
     Returns:
         List of n elements (may include fill_value for padding)
+    
+    Examples:
+        arr = [1, 2, 3, 4]
+        get_n_elements(arr, 3)  # [2, 3, 4]
+        get_n_elements(arr, 3, start=2)  # [3, 4, None]
+        get_n_elements(arr, 3, start=-2)  # [3, 4, None]
     """
-    if last:
-        last_n = arr[-n:]  # Get last n
+    if start == None:
+        res = arr[-n:]  # Get last n
     else:
-        last_n = arr[:n]  # Get first n
+        if start < 0:
+            start = len(arr) + start
+        res = arr[start:start+n]
     
     # Pad with fill_value if needed
-    if len(last_n) < n:
-        last_n = last_n + [fill_value] * (n - len(last_n))
-    return last_n
+    if len(res) < n:
+        res = res + [fill_value] * (n - len(res))
+    return res
 
 
-def compute_score(solution_str: str, ground_truth: str, eval_type_text: str):
+def compute_score(solution_str: str, ground_truth: str, eval_type = None, score_type = "hard", debug=False) -> float:
     """
     Compute score for RL training.
     
     Args:
         solution_str: Complete model output with potential multiple answers
         ground_truth: Ground truth with potential multiple parts
-        eval_type_text: Comma-separated evaluation types
+        eval_type: Comma-separated evaluation types
+        score_type: The strictness level (hard or soft) of evaluation. We recommend "soft" as the reward for RL training
         
     Returns:
         Float score between 0.0 and 1.0 (used as RL reward)
     """
+    global DEBUG, DEBUG_INFO
+    DEBUG = debug
+    DEBUG_INFO = []
+
     if "boxed{" in ground_truth:
-        ground_truth = extract_answer(ground_truth.split("/think>")[-1].strip())[-1]
+        ground_truth = extract_answer(ground_truth, last=True)
 
     # Calculate number of questions based on eval types
-    eval_type = re.split(r'[,，]', eval_type_text)
+    if eval_type == None or eval_type == "":
+        eval_type = [None]
+    else:
+        eval_type = re.split(r'[,，]', eval_type)
     qtype_len = len(eval_type)
-
+    true_num, true_num2 = 0, 0
     try:
         ref_list = [ground_truth]
         if qtype_len > 1:
@@ -326,8 +395,11 @@ def compute_score(solution_str: str, ground_truth: str, eval_type_text: str):
                     break
         ref_list = get_n_elements(ref_list, qtype_len)
 
-        pred_res = extract_answer(solution_str.split("/think>")[-1].strip())  # Model answers
-        if len(ref_list) > len(pred_res):
+        pred_res = extract_answer(solution_str)  # Model answers
+        if DEBUG:
+            DEBUG_INFO.append(("pred_res (extracted answers):", pred_res))
+        pred_res_len = len(pred_res)
+        if len(ref_list) > pred_res_len:
             separators = ",，;； "  # Used to split predictions
             tmp = []
             for pi in pred_res:
@@ -341,85 +413,170 @@ def compute_score(solution_str: str, ground_truth: str, eval_type_text: str):
                     tmp.append(pi)
             pred_res = tmp
 
-        pred_list = get_n_elements(pred_res, qtype_len)  # Get last qtype_len answers
-        check_res = [eval_router(pred_list[ref_i], ref_v, eval_type[ref_i]) for ref_i, ref_v in enumerate(ref_list)]
-        true_num = sum(check_res)
+        if pred_res_len > qtype_len and score_type == "soft": # Taking different answers to evaluate
+            different_attemps = pred_res_len-qtype_len+1
+            attempt_str_list = {}
+            for si in range(different_attemps):
+                pred_list = get_n_elements(pred_res, qtype_len, start=si)  # Get qtype_len answers from the start position
+                pred_list_str = str(pred_list)
+                if pred_list_str in attempt_str_list:
+                    tmp = attempt_str_list.pop(pred_list_str)
+                    attempt_str_list[pred_list_str] = tmp
+                    continue
+                check_res = [eval_router(pred_list[ref_i], ref_v, eval_type[ref_i], score_type) for ref_i, ref_v in enumerate(ref_list)]
+                attempt_str_list[pred_list_str] = sum(check_res) # The higher the reward score for the answers that appear later
+            different_answers_scores = list(attempt_str_list.values())
+            if "_" in eval_type[0]:  # Only available for nested array evaluation
+                # deduplicate scores in different_answers_scores, keep the last occurrence
+                different_answers_scores = list(dict.fromkeys(reversed(different_answers_scores)))[::-1]
+            ds_len = len(different_answers_scores)
+            # The higher the reward score for the answers that appear later
+            for di, ds in enumerate(different_answers_scores):
+                different_answers_scores[di] = ds * (di + 1) / ds_len
+            if DEBUG:
+                DEBUG_INFO.append(("different_answers_scores (consider position):", *[Fraction(ds).limit_denominator(100) for ds in different_answers_scores]))
+            true_num = max(different_answers_scores)*qtype_len/max(qtype_len, ds_len) # The more different answers there are, the lower the reward score
+        else:
+            pred_list = get_n_elements(pred_res, qtype_len)  # Get last qtype_len answers
+            check_res = [eval_router(pred_list[ref_i], ref_v, eval_type[ref_i], score_type) for ref_i, ref_v in enumerate(ref_list)]
+            true_num = sum(check_res)
+            different_answers_scores = [true_num]
         
-        true_num2 = 0
-        if true_num == 0 and qtype_len == 1 and len(pred_res) > 1:  # If single question but multiple predictions
+        # If single question but multiple predictions, consider concatenating multiple answers from pred_des before evaluating
+        if qtype_len == 1 and pred_res_len > 1 and eval_type[0] not in ["nominal", "strict_nominal", "numeral", "option"]: # Only avalilable for array evaluation
             pred_list = [";".join(pred_res)]
-            check_res = eval_router(pred_list[0], ref_list[0], eval_type[0])
-            true_num2 = sum([check_res])
-
-        true_num3 = 0
-        if true_num2 == 0:
-            pred_list = get_n_elements(pred_res, qtype_len, False)  # Get first qtype_len answers
-            check_res = [eval_router(pred_list[ref_i], ref_v, eval_type[ref_i]) for ref_i, ref_v in enumerate(ref_list)]
-            true_num3 = sum(check_res)
-        res_score = max(true_num, true_num2, true_num3) / qtype_len
+            if DEBUG:
+                DEBUG_INFO.append(("pred_list (concatenate all predictions):", pred_list))
+            check_res = eval_router(pred_list[0], ref_list[0], eval_type[0], score_type)
+            if check_res not in different_answers_scores:
+                true_num2 = check_res
+            elif DEBUG:
+                DEBUG_INFO.append(("check_res (", Fraction(check_res).limit_denominator(100), ") already considered in different_answers_scores, so true_num2 = 0."))
 
     except Exception as e:
-        res_score = 0.0
+        import traceback
+        error_info = traceback.format_exc()
+        print("Error:", error_info)
+        print("Args info:\n", {"pre": solution_str, "ref": ground_truth, "eval_type": eval_type})
 
-    return res_score
+    res_score = max(true_num, true_num2) / qtype_len
+    if DEBUG:
+        DEBUG_INFO.append(("true_num (consider ds_len):", Fraction(true_num).limit_denominator(100), "true_num2 (concatenate all predictions):", Fraction(true_num2).limit_denominator(100), "qtype_len:", qtype_len, "res_score:", Fraction(res_score).limit_denominator(100), "=", res_score))
+        return res_score, DEBUG_INFO
+    else:
+        return res_score
 
 
-def evaluation(prediction: str, ground_truth: str, eval_type_text: str) -> bool:
+def evaluation(prediction: str, ground_truth: str, eval_type = None) -> bool:
     """
     Evaluate LLM prediction with strict binary result.
     
     Args:
         prediction: Model's prediction
         ground_truth: Ground truth answer
-        eval_type_text: Evaluation type specification
+        eval_type: Evaluation type specification
         
     Returns:
         True if all parts are correct, False otherwise
     """
-    return False if compute_score(prediction, ground_truth, eval_type_text) < 1 else True
+    return False if compute_score(prediction, ground_truth, eval_type) < 1 else True
 
 
 if __name__ == "__main__":
+    data = {"pre": "\\boxed{[\"乌龟\", \"宠物猪\"]}, 还有 \\boxed{[\"乌龟\", \"宠物猪\"]}，以及\\boxed{[\"乌龟\", \"小猫\"]}", "ref": "[\"乌龟\", \"小猫s\"]", "eval_type": "ordered array"}
+
+    data = {"pre": "COT: The answer is: \\boxed{[[(3, 2), (3, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)], [(5, 3), (5, 4)]]}", "ref": "[[(3, 2), (3, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)], [(5, 3), (5, 4)]]", "eval_type": "ooa_nominal"}
+
+    data = {"pre": "The answer is \\boxed{A}, or \\boxed{B}", "ref": "B", "eval_type": "option"}
+    res, debug_info = compute_score(data['pre'], data['ref'], data['eval_type'], "soft", debug=True)
+    print(f"res: {res}")
+    print(f"ref: {data['ref']}")
+    print("Debug Info:")
+    for info in debug_info:
+        print("   ", *info)
+    
+    '''
     import time
     start_time = time.time()
 
-    print(eval_router("[['a','b'], ['c', 'd'], ['d', 'e']]", "[['b','a'], ['d', 'c'],['d', 'e']]", eval_type="ooa_nominal"))
+    ref = "2"
+    pre_list = ["\\boxed{Two}", "\\boxed{1} or \\boxed{2}", "\\boxed{1} or \\boxed{3} or \\boxed{2}", "\\boxed{1} or \\boxed{2} or \\boxed{3}", "\\boxed{1} or \\boxed{2} or \\boxed{3} or \\boxed{4}", "\\boxed{1} or \\boxed{3} or \\boxed{2} or \\boxed{4}"]
+    for pi in pre_list:
+        print(compute_score(pi, ref, "numeral", "soft"), end="\t")  # 1.0     0.5     0.3333333333333333      0.2222222222222222      0.125   0.1875
+    print()
+    for pi in pre_list:
+        print(compute_score(pi, ref, "numeral", "hard"), end="\t")  # 1.0     1.0     1.0     0.0     0.0     0.0
+    print()
+
+    print(evaluation("This is text. 最终答案\n\\[\n\\boxed{18}\\quad\\boxed{10}\n\\]\n", "18,10", eval_type="numeral"))  # True
+
+    # print(eval_router("({2014}^{2012} + {2013}^{2013})^{2011} + {2012}^{{2014}^{2012} + {2013}^{2013} - 1} \\square 2011", "2",eval_type="nominal"))
+    print(eval_router("1/3", "33.33%"))  # True
+    print(eval_router("1/3", "33.33%", eval_type="nominal"))  # False
+    print(eval_router("[['a','b'], ['c', 'd'], ['d', 'e']]", "[['b','a'], ['d', 'c'],['d', 'e']]", eval_type="ooa_nominal"))  # False
 
     solution_str = "xixihh\\boxed{[[\"6\", \"7\"], [\"8\", \"9\"], [\"7\", \"9\"], [\"6\", \"9\"]]} \\boxed{A}\n$$"
     ground_truth = "[['6', '7'], ['8', '9'], ['7', '9'], ['6', '9']]====A"
-    eval_type_text = "ooa_numeral,option"
+    eval_type = "ooa_numeral,option"
 
-    print(compute_score(solution_str, ground_truth, eval_type_text))
+    print(compute_score(solution_str, ground_truth, eval_type))  # 1.0
+
+    solution_str = "xixihh\\boxed{({2014}^{2012} + {2013}^{2013})^{2011} + {2012}^{{2014}^{2012} + {2013}^{2013} - 1} \\square 2011} \\]"
+    ground_truth = "2"
+    eval_type = "numeral"
+    # print(compute_score(solution_str, ground_truth, eval_type))  # 0.0
+    
 
     solution_str = "\\boxed{A, 12.5}\n$$"
     ground_truth = "A====125"
-    eval_type_text = "option,nominal"
-    print(compute_score(solution_str, ground_truth, eval_type_text))
+    eval_type = "option,nominal"
+    print(compute_score(solution_str, ground_truth, eval_type))  # 1.0 (as the eval_type of the second answer is nominal. If it is numeral, the score will be 0.5)
+
+    print("---laoshi test cases---")
+    pre = "\\boxed{22,3,23}"
+    ref = "2,1,231"
+    print(compute_score(pre, ref, 'ordered array'), compute_score(pre, ref, 'ordered array', 'soft')) # 0.0    0.333
+    print(compute_score(pre, ref, 'unordered array'), compute_score(pre, ref, 'unordered array', 'soft')) # 1.0    1.0
 
     pre = "\\boxed{老15，老二}"
     ref = "2，15"
-    print(compute_score(pre, ref, 'ordered array'))
-    print(compute_score(pre, ref, 'unordered array'))
+    print(compute_score(pre, ref, 'ordered array')) # 0.0
+    print(compute_score(pre, ref, 'unordered array')) # 1.0
 
     print("--------------------")
-    pre = "\\boxed{护理学,经济学,音乐学,化学,土木工程}"
+    pre = "\\boxed{护理学,音乐学,化学,经济学,土木工程}"
     ref = "化学,音乐学,土木工程,经济学,护理学\n"
-    print(compute_score(pre, ref, 'ordered array'))  # false
-    print(compute_score(pre, ref, 'unordered array'))  # true
+    print(compute_score(pre, ref, 'ordered array'), compute_score(pre, ref, 'ordered array', 'soft'))  # 0.0    0.4
+    print(compute_score(pre, ref, 'unordered array'), compute_score(pre, ref, 'unordered array', 'soft'))  # 1.0    1.0
 
     print("--------------------")
     pre = "sdfsdf\\boxed{王桂芝};\\boxed{张凯};\\boxed{张俊};\\boxed{张玲};sdfsdf"
     ref = "王桂芝,张凯,张玲,张俊\n"
-    print(compute_score(pre, ref, 'ordered array'))  # false
-    print(compute_score(pre, ref, 'unordered array'))  # true
+    print(compute_score(pre, ref, 'ordered array'), compute_score(pre, ref, 'ordered array', 'soft'))  # 0.0    0.5
+    print(compute_score(pre, ref, 'unordered array'), compute_score(pre, ref, 'unordered array', 'soft'))  # 1.0    1.0
 
-    pre = "sdfsdf\\boxed{[[55, '刘莹', 1.602], [52, '何丽', 18], [53, '雷刚', 19], [54, '许婷婷', 17]]};sdfsdf"
+    pre = "sdfsdf\\boxed{[[55, '刘莹', 1.602], [52, '何丽', 18], [53, '雷刚', 19], [54, '许婷婷', 17.02]]};sdfsdf"
     ref = "[[55, '刘莹', 1.60], [52, '何丽', 18], [53, '雷刚', 19], [54, '许婷婷', 17]]\n"
-    print(compute_score(pre, ref, 'ooa_nominal'))  # false
+    print(compute_score(pre, ref, 'ooa_nominal'), compute_score(pre, ref, 'ooa_nominal', 'soft'))  # 0.0    0.8333333333333333
 
     pre = "sdfsdf\\boxed{[[\"仓鼠\"],[\"仓鼠\", \"蝾螈\"],[\"仓鼠\", \"蝾螈\"],[\"仓鼠\"],[\"仓鼠\", \"蝾螈\"],[\"仓鼠\", \"乌龟\"],[\"蝾螈\", \"变色龙\"],[\"仓鼠\", \"蝾螈\"],[\"变色龙\"]]};sdfsdf"
-    ref = "[['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '蝾螈'], ['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '乌龟'], ['蝾螈', '变色龙'], ['仓鼠', '蝾螈'], ['变色龙']]\n"
-    print(compute_score(pre, ref, 'oua_nominal'))  # true
+    ref = "[['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '蝾螈'], ['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '乌龟22'], ['蝾螈22', '变色龙'], ['仓鼠', '蝾螈'], ['变色龙']]\n"
+    print(compute_score(pre, ref, 'oua_nominal'), compute_score(pre, ref, 'oua_nominal', 'soft'))  # 0.0    0.8888888888888888
     
     execution_time = time.time() - start_time
     print(f"Code execution time: {execution_time:.6f} seconds")
+    '''
+
+    # with open(file_path, 'r') as file, open("grpo_extracted_logs_scores_ch.txt", 'w') as output_file:
+    #     for index, line in enumerate(file):
+    #         try:
+    #             log_entry = json.loads(line.strip())
+    #             pre = log_entry.get('pre', "")
+    #             ref = log_entry.get('ref', "")
+    #             eval_type = log_entry.get('eval_type', "")
+    #             score = compute_score(pre, ref, eval_type, score_type='soft')
+    #             output_file.write(f"{index}\t{score}\n")
+    #             print(index, score)
+    #             # print(f"Pre: {pre}\nRef: {ref}\nEval Type: {eval_type}\nScore: {score}\n")
+    #         except json.JSONDecodeError:
+    #             print("Invalid JSON format in extracted log:", line)
