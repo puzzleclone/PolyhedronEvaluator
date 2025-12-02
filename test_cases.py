@@ -42,7 +42,7 @@ def run_test_cases(group: str = None, case_idx: int = None):
             score, debug_info = compute_score(pre, ref, eval_type, score_type="soft", debug=True)
             eval_res = evaluation(pre, ref, eval_type)
             
-            tolerance = 0.001  
+            tolerance = 1e-7 
             if abs(score - expected_score) >= tolerance or eval_res != expected_eval_res:
                 inconsistent_num += 1
                 print(f"===================  Case {idx} (👇) Failed  ===================")
@@ -55,6 +55,8 @@ def run_test_cases(group: str = None, case_idx: int = None):
                 for info in debug_info:
                     print("   ", *info)
                 print()
+                # case["expected_score"] = round(score, 8)
+                # case["expected_eval_res"] = eval_res
     
     if inconsistent_num == 0:
         print(f"\nAll {all_cases_len} test cases passed! 😊")
@@ -67,17 +69,20 @@ def run_test_cases(group: str = None, case_idx: int = None):
 if __name__ == "__main__":
     start_time = time.time()
     all_cases = run_test_cases(group=None, case_idx=None)
-    # run_test_cases(group="nominal", case_idx=15)
+    # run_test_cases(group="combination", case_idx=3)
     execution_time = time.time() - start_time
     print(f"Code execution time: {execution_time:.6f} seconds")
 
+    # with open("test_cases.json", "w", encoding="utf-8") as f:
+    #     json.dump(all_cases, f, ensure_ascii=False, indent=4)
+
 ''' Output after running the test cases:
-=== Group: numeral (23 cases) ===
+=== Group: numeral (30 cases) ===
 === Group: nominal (28 cases) ===
 === Group: multiple_choice (16 cases) ===
 === Group: array (53 cases) ===
-=== Group: combination (3 cases) ===
+=== Group: combination (9 cases) ===
 
-All 123 test cases passed! 😊
-Code execution time: 4.156945 seconds
+All 136 test cases passed! 😊
+Code execution time: 0.941148 seconds
 '''

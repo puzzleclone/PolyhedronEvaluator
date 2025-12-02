@@ -48,7 +48,7 @@ def extract_answer(pred_str: str, flag: str = "boxed", last: bool = False) -> an
                                 break
                     a += c
                 # if a.count("{") == a.count("}"):
-                if stack != 0:
+                if stack != 0 and a_bk != "":
                     a = a_bk
                 if "text{" in a:
                     text_pattern = r'\\text\{([^}]*)\}'
@@ -84,6 +84,7 @@ def extract_answer(pred_str: str, flag: str = "boxed", last: bool = False) -> an
 
 
 if __name__ == "__main__":
+    print(extract_answer("\n\\boxed{\\text{D},\\ \\boxed{\\text{D}}}"))
     print(extract_answer("\\boxed{F. xxx}"))
     print(extract_answer("The first box: \\boxed{Answer: \\text{A}}; The second box: \\boxed{Remove text wrapper \\text{B}, \\frac{1}{4}}"))
     print(extract_answer("No boxed", last=True))

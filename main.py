@@ -266,7 +266,7 @@ def eval_router(pre: str, ref: str, eval_type: Optional[str] = None, score_type:
         if eval_type == "strict_nominal":
             return strict_nominal_equal(pre, ref, score_type)
         if eval_type == "numeral":
-            return numeral_equal(pre, ref)
+            return numeral_equal(pre, ref, score_type)
         if eval_type == "multi_options":
             return multi_answers_MCQ(pre, ref, score_type)
         if eval_type.startswith("order"):
@@ -358,6 +358,26 @@ def get_n_elements(arr: List[Any], n: int, start: Optional[int] = None, fill_val
     return res
 
 
+@lru_cache(maxsize=10000)
+def split_pred(pred: str, seps = ",，;； ") -> List[str]:
+    """
+    Split prediction string into parts based on specified separators.
+    
+    Args:
+        pred: Prediction string to split
+        seps: String of separator characters (default: ",;，； ")
+        
+    Returns:
+        List of split parts
+    """
+    pred_split = []
+    for sep in seps:
+        if sep in pred:
+            pred_split.extend([x.strip() for x in pred.split(sep) if x.strip()])
+            break
+    return pred_split if len(pred_split) > 0 else [pred]
+
+
 def compute_score(solution_str: str, ground_truth: str, eval_type = None, score_type = "hard", debug=False) -> float:
     """
     Compute score for RL training.
@@ -399,18 +419,13 @@ def compute_score(solution_str: str, ground_truth: str, eval_type = None, score_
         if DEBUG:
             DEBUG_INFO.append(("pred_res (extracted answers):", pred_res))
         pred_res_len = len(pred_res)
+        if pred_res_len == 0:
+            return False if score_type == "hard" else 0.0
+
         if len(ref_list) > pred_res_len:
-            separators = ",，;； "  # Used to split predictions
             tmp = []
             for pi in pred_res:
-                append_flag = True
-                for sep in separators:
-                    if sep in pi:
-                        tmp.extend([x for x in pi.split(sep) if x])
-                        append_flag = False
-                        break
-                if append_flag:
-                    tmp.append(pi)
+                tmp.extend(split_pred(pi))
             pred_res = tmp
 
         if pred_res_len > qtype_len and score_type == "soft": # Taking different answers to evaluate
@@ -441,6 +456,19 @@ def compute_score(solution_str: str, ground_truth: str, eval_type = None, score_
             check_res = [eval_router(pred_list[ref_i], ref_v, eval_type[ref_i], score_type) for ref_i, ref_v in enumerate(ref_list)]
             true_num = sum(check_res)
             different_answers_scores = [true_num]
+            if DEBUG:
+                DEBUG_INFO.append((f"different_answers_scores (last {qtype_len} answers):", *[Fraction(ds).limit_denominator(100) for ds in different_answers_scores]))
+        
+        # If multiple questions but partial answers correct, try splitting last prediction
+        if qtype_len > 1 and true_num < qtype_len:
+            pred_last_split = split_pred(pred_res[-1]) # Split last prediction
+            if str(pred_last_split) != str([pred_res[-1]]):
+                pred_res = pred_res[:-1] + pred_last_split  
+                pred_list = get_n_elements(pred_res, qtype_len)  # Get last qtype_len answers
+                check_res = [eval_router(pred_list[ref_i], ref_v, eval_type[ref_i], score_type) for ref_i, ref_v in enumerate(ref_list)]
+                true_num = max(true_num, sum(check_res))
+                if DEBUG:
+                    DEBUG_INFO.append(("pred_list (after splitting last prediction):", pred_list, "  true_num (max with previous):", Fraction(true_num).limit_denominator(100)))
         
         # If single question but multiple predictions, consider concatenating multiple answers from pred_des before evaluating
         if qtype_len == 1 and pred_res_len > 1 and eval_type[0] not in ["nominal", "strict_nominal", "numeral", "option"]: # Only avalilable for array evaluation
