@@ -6,7 +6,6 @@ particularly from LaTeX boxed notation and various text formats.
 """
 
 import re
-from typing import Union, List
 
 
 def extract_answer(pred_str: str, flag: str = "boxed", last: bool = False) -> any:
@@ -29,34 +28,34 @@ def extract_answer(pred_str: str, flag: str = "boxed", last: bool = False) -> an
     if flag in pred_str:
         for ans in pred_str.split(flag)[1:]:
             pred = ""
+            ans = ans.strip()
             if len(ans) == 0:
                 return "" if last else [""]
             elif ans[0] == "{":
                 stack = 1
                 a = ""
-                for c in ans[1:]:
+                a_bk = ""
+                for c_index, c in enumerate(ans[1:]):
                     if c == "{":
                         stack += 1
-                        a += c
                     elif c == "}":
                         stack -= 1
                         if stack == 0:
-                            break
-                        a += c
-                    else:
-                        a += c
-                if "{" in a:
-                    if a.count("{") == a.count("}"):
-                        if "text" in a:
-                            text_pattern = r'\\text\{([^}]*)\}'
-                            matches = re.findall(text_pattern, a)
-                            # 12 \\text{pounds}
-                            # \\text{pounds}
-                            a = re.sub(text_pattern, r'\1', a)
-                        else:
-                            pred = a
-                    else:
-                        a = ""
+                            if c_index < len(ans) - 2 and ans[c_index + 2] in "{}[]<>()":
+                                a_bk = a
+                                stack += 1
+                            else:
+                                break
+                    a += c
+                # if a.count("{") == a.count("}"):
+                if stack != 0 and a_bk != "":
+                    a = a_bk
+                if "text{" in a:
+                    text_pattern = r'\\text\{([^}]*)\}'
+                    matches = re.findall(text_pattern, a)
+                    # 12 \\text{pounds}
+                    # \\text{pounds}
+                    a = re.sub(text_pattern, r'\1', a)
             else:
                 if "$" in ans:
                     a = ans.split("$")[0].strip()
@@ -85,6 +84,8 @@ def extract_answer(pred_str: str, flag: str = "boxed", last: bool = False) -> an
 
 
 if __name__ == "__main__":
+    print(extract_answer("\n\\boxed{\\text{D},\\ \\boxed{\\text{D}}}"))
     print(extract_answer("\\boxed{F. xxx}"))
     print(extract_answer("The first box: \\boxed{Answer: \\text{A}}; The second box: \\boxed{Remove text wrapper \\text{B}, \\frac{1}{4}}"))
-    print(extract_answer("No boxed"))
+    print(extract_answer("No boxed", last=True))
+    print(extract_answer("The answer is \\boxed{{}}}()}{ and also \\boxed{43)}}}(.", last=False))
