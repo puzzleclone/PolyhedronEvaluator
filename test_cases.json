@@ -1,0 +1,999 @@
+{
+    "numeral": [
+        {
+            "pre": "Final answer: \\boxed{Two}.",
+            "ref": "2",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{25}",
+            "ref": "twenty-five",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{答案是25}",
+            "ref": "二十五",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{老二}",
+            "ref": "老2",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{零点二五}",
+            "ref": "1/4",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{答案是零点五加仑}",
+            "ref": "4/8加仑",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{22.4 m}",
+            "ref": "22.4",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{0.245}",
+            "ref": "24.5%",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{24.55}",
+            "ref": "24.5%",
+            "eval_type": "numeral",
+            "expected_score": 0.29390761,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{1/3}",
+            "ref": "33.33%",
+            "eval_type": "numeral",
+            "expected_score": 0.94175888,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{1/3}",
+            "ref": "三分之一",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{零点二五}",
+            "ref": "\\frac{1}{4}",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{\\dfrac{5}{4}}",
+            "ref": "1\\frac{1}{4}",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{\\dfrac{1}{5}}",
+            "ref": "1:5",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{18+10}",
+            "ref": "28",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "This is text. 可能答案\\boxed{18}，最终答案：\\boxed{10}.",
+            "ref": "10",
+            "eval_type": "numeral",
+            "expected_score": 0.5,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{1} or \\boxed{2}",
+            "ref": "2",
+            "eval_type": "numeral",
+            "expected_score": 0.5,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{1} or \\boxed{1} or \\boxed{2}",
+            "ref": "2",
+            "eval_type": "numeral",
+            "expected_score": 0.5,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{1} or \\boxed{3} or \\boxed{2}",
+            "ref": "2",
+            "eval_type": "numeral",
+            "expected_score": 0.33333333,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{1} or \\boxed{2} or \\boxed{3}",
+            "ref": "2",
+            "eval_type": "numeral",
+            "expected_score": 0.22222222,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{1} or \\boxed{2} or \\boxed{3} or \\boxed{4}",
+            "ref": "2",
+            "eval_type": "numeral",
+            "expected_score": 0.125,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{1} or \\boxed{3} or \\boxed{2} or \\boxed{4}",
+            "ref": "2",
+            "eval_type": "numeral",
+            "expected_score": 0.1875,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "及格率的最小可能值为0，即没有人做对至少7道题。\n\n\\boxed{0.00}",
+            "ref": "0.01\n",
+            "eval_type": "numeral",
+            "expected_score": 0.00247875,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{3199.91}千米。",
+            "ref": "3152.07",
+            "eval_type": "numeral",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{3163.56}千米。",
+            "ref": "3152.07",
+            "eval_type": "numeral",
+            "expected_score": 0.11223794,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{3158.94}千米。",
+            "ref": "3152.07",
+            "eval_type": "numeral",
+            "expected_score": 0.27043809,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{3152.14}千米。",
+            "ref": "3152.07",
+            "eval_type": "numeral",
+            "expected_score": 0.9867638,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{3152.07}千米。",
+            "ref": "3152.07",
+            "eval_type": "numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{3152.05}千米。",
+            "ref": "3152.07",
+            "eval_type": "numeral",
+            "expected_score": 0.99620022,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{3152.07002}千米。",
+            "ref": "3152.07",
+            "eval_type": "numeral",
+            "expected_score": 0.99999619,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "最终答案为：\n\n\\boxed{4251.81}千米。...\\boxed{4251.80}",
+            "ref": "4252.17",
+            "eval_type": "numeral",
+            "expected_score": 0.47456541,
+            "expected_eval_res": false
+        }
+    ],
+    "nominal": [
+        {
+            "pre": "The answer is \\boxed{yes}",
+            "ref": "Yes",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{Yes.}",
+            "ref": "yes",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{no}",
+            "ref": "Yes",
+            "eval_type": "nominal",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{a\n}",
+            "ref": "(A)",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{a\n}",
+            "ref": "(A)",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{老3}",
+            "ref": "老三",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{老3}",
+            "ref": "老三",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{小明妈妈}",
+            "ref": "小明",
+            "eval_type": "nominal",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{ YES  }",
+            "ref": "yes",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{U.S.A.}",
+            "ref": "USA",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{上 海}",
+            "ref": "上海",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{A/B}",
+            "ref": "AB",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{twenty five}",
+            "ref": "25",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{老二十五}",
+            "ref": "老25",
+            "eval_type": "nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{二十五岁}",
+            "ref": "25",
+            "eval_type": "nominal",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{老张}",
+            "ref": "张老",
+            "eval_type": "nominal",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{1/3}",
+            "ref": "三分之一",
+            "eval_type": "nominal",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{{}}}()}",
+            "ref": "{}}}())",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.85714286,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{})}}, or \\boxed{)}}}(.",
+            "ref": ")}}",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.5,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{{}—+-}",
+            "ref": "{}}+)",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.4,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{()}",
+            "ref": "(())??",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{[ab]}",
+            "ref": "[ab]??!!",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{X+Y}",
+            "ref": "(x+y)^2",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.42857143,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{ABC}",
+            "ref": "ZZAbCD",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{!!}",
+            "ref": "!?!!?",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.4,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{ NO  }. Wait, final answer is \\boxed{Yes!}",
+            "ref": "yes",
+            "eval_type": "nominal",
+            "expected_score": 0.5,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{ Yes  }. Wait, final answer is \\boxed{Yes!}",
+            "ref": "yes",
+            "eval_type": "strict_nominal",
+            "expected_score": 0.375,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{None} or \\boxed{YES}. Wait, final answer is \\boxed{NO!}",
+            "ref": "yes",
+            "eval_type": "nominal",
+            "expected_score": 0.22222222,
+            "expected_eval_res": false
+        }
+    ],
+    "multiple_choice": [
+        {
+            "pre": "The answer is \\boxed{B}",
+            "ref": "A",
+            "eval_type": "option",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{F.23}",
+            "ref": "F",
+            "eval_type": "option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{A}",
+            "ref": "(A)",
+            "eval_type": "option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{A) 33}",
+            "ref": "33",
+            "eval_type": "option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{A) 33}",
+            "ref": "a",
+            "eval_type": "option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{C. 42}",
+            "ref": "(D)",
+            "eval_type": "option",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{33}",
+            "ref": "A",
+            "eval_type": "option",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{A}",
+            "ref": "B) 10",
+            "eval_type": "option",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{D} and \\boxed{B}, \\boxed{C}, \\boxed{D}, \\boxed{B}, \\boxed{D}.",
+            "ref": "D",
+            "eval_type": "option",
+            "expected_score": 0.33333333,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{D} and \\boxed{B}, \\boxed{C}, \\boxed{D}, \\boxed{B}.",
+            "ref": "D",
+            "eval_type": "option",
+            "expected_score": 0.22222222,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{A、B、c}",
+            "ref": "ABC",
+            "eval_type": "multi_options",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{A、B}",
+            "ref": "A,B,C",
+            "eval_type": "multi_options",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{A、B、D}",
+            "ref": "ABC",
+            "eval_type": "multi_options",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{C、B、A、D}",
+            "ref": "ABC",
+            "eval_type": "multi_options",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer may be \\boxed{c}, or may be \\boxed{b,c}",
+            "ref": "ABC",
+            "eval_type": "multi_options",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{c} and \\boxed{b}",
+            "ref": "ABC",
+            "eval_type": "multi_options",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        }
+    ],
+    "array": [
+        {
+            "pre": "The answer is \\boxed{[50, '刘鑫', 21]}",
+            "ref": "[50, '刘鑫', 22]",
+            "eval_type": "ordered array",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{['老15', '老三', '老5']}",
+            "ref": "['3', '15', '6']",
+            "eval_type": "ordered array",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{['二', '(B)', 'Seven']}",
+            "ref": "['B', '2', '7']",
+            "eval_type": "ordered array",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{[(3, 11, 8, 6), ('+', '+', '/')]}",
+            "ref": "[(3, 1, 8, 6), (' ', '+', '/')]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.70833333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "让我们一步一步地推理和计算：\n\n1. 开始时，已知：\n   - 曹晨55岁；\n   - 曾慧14岁；\n   - 曾慧的父亲是曾利；\n   - 曹晨有一个16岁的女儿；\n   - 曾慧是这4个女儿中最小的一个；\n   - 曾慧比李佳小3岁，则李佳17岁；\n   - 柏娜的女儿是杨丹丹；\n   - 曹晨比柏娜小2岁，所以柏娜57岁；\n   - 曾利是这4个父亲中最大的一个，所以曾利最大，即60岁；\n   - 杨宁的年龄可以通过观察其它人的年龄得出，因为4位已婚男士的年龄分别相差一岁，杨宁应该56岁。\n\n2. 现在整理各人的年龄：\n   - 曹晨55岁，女儿16岁；\n   - 柏娜57岁，女儿15岁；\n   - 曾利60岁，女儿14岁；\n   - 杨宁56岁，女儿18岁（因为杨丹丹是李莉或李佳的女儿，且李佳17岁）。\n\n3. 核对女儿的名字：\n   - 曾慧14岁，父亲是曾利；\n   - 李佳17岁；\n   - 曾慧比李佳小3岁，是正确的；\n   - 杨丹丹是18岁，因为杨宁的女儿必须是最大的，且名字是四个中最后一个未用的名字。\n\n4. 最终结论：\n   - 曹晨55岁，女儿16岁（曾慧14岁+2岁）；\n   - 柏娜57岁，女儿15岁（李莉或李佳中未明确说出名字）；\n   - 曾利60岁，女儿14岁（曾慧）；\n   - 杨宁56岁，女儿18岁（杨丹丹）。\n\n5. 输出结果：\n\\[ \n\\boxed{\n\\begin{array}{ccc}\n[55, \\text{曾慧}, 16] \\n[56, \\text{杨丹丹}, 18] \\n[57, \\text{李莉/李佳}, 15] \\n[60, \\text{曾慧}, 14] \\n\\end{array}\n}\n\\]",
+            "ref": "[[55, '李莉', 16], [56, '李佳', 17], [57, '杨丹丹', 15], [58, '曾慧', 14]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.58333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{22,3,23}",
+            "ref": "2,1,231",
+            "eval_type": "ordered array",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{C,B,A} or \\boxed{A,B,C}",
+            "ref": "A,B,C",
+            "eval_type": "ordered array",
+            "expected_score": 0.5,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{22,3,23}",
+            "ref": "2,1,231",
+            "eval_type": "unordered array",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{老15，老二}",
+            "ref": "2，15",
+            "eval_type": "ordered array",
+            "expected_score": 0.0,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{老15，老二}",
+            "ref": "2，15",
+            "eval_type": "unordered array",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{老15} and \\boxed{老二}",
+            "ref": "2，15",
+            "eval_type": "unordered array",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{老15，老二} 或者 \\boxed{老十五}",
+            "ref": "2，15",
+            "eval_type": "unordered array",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{护理学,音乐学,化学,经济学,土木工程}",
+            "ref": "化学,音乐学,土木工程,经济学,护理学\n",
+            "eval_type": "ordered array",
+            "expected_score": 0.4,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{护理学,音乐学,化学,经济学,土木工程}",
+            "ref": "化学,音乐学,土木工程,经济学,护理学\n",
+            "eval_type": "unordered array",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "sdfsdf\\boxed{王桂芝};\\boxed{张凯};\\boxed{张俊};\\boxed{张玲};sdfsdf",
+            "ref": "王桂芝,张凯,张玲,张俊\n",
+            "eval_type": "ordered array",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "sdfsdf\\boxed{王桂芝};\\boxed{张凯};\\boxed{张俊};\\boxed{张玲};sdfsdf",
+            "ref": "王桂芝,张凯,张玲,张俊\n",
+            "eval_type": "unordered array",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "sdfsdf\\boxed{[[55, '刘莹', 1.602], [52, '何丽', 18], [53, '雷刚', 19], [54, '许婷婷', 17.02]]};sdfsdf",
+            "ref": "[[55, '刘莹', 1.60], [52, '何丽', 18], [53, '雷刚', 19], [54, '许婷婷', 17]]\n",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.83333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "sdfsdf\\boxed{[[\\\"仓鼠\\\"],[\\\"仓鼠\\\", \\\"蝾螈\\\"],[\\\"仓鼠\\\", \\\"蝾螈\\\"],[\\\"仓鼠\\\"],[\\\"仓鼠\\\", \\\"蝾螈\\\"],[\\\"仓鼠\\\", \\\"乌龟\\\"],[\\\"蝾螈\\\", \\\"变色龙\\\"],[\\\"仓鼠\\\", \\\"蝾螈\\\"],[\\\"变色龙\\\"]]};sdfsdf",
+            "ref": "[['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '蝾螈'], ['仓鼠'], ['仓鼠', '蝾螈'], ['仓鼠', '乌龟22'], ['蝾螈22', '变色龙'], ['仓鼠', '蝾螈'], ['变色龙']]\n",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.88888889,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "Answers: \\boxed{[['a','b'], ['c', 'd'], ['d', 'e']]}",
+            "ref": "[['b','a'], ['d', 'c'], ['d', 'e']]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{[1, 2, 3]}",
+            "ref": "一, 2, 4",
+            "eval_type": "ordered array",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{[1, 2, 3]}",
+            "ref": "一, 2, 4",
+            "eval_type": "oa_nominal",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{['老15', '老三', '老5']}",
+            "ref": "3, 15, 6",
+            "eval_type": "unordered array",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{['老15', '老三', '老5']}",
+            "ref": "3, 15, 6",
+            "eval_type": "ua_nominal",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{[1, 2, 2, 3]}",
+            "ref": "[2, 3]",
+            "eval_type": "unordered array",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{['apple', 'banana', 'cherry']}",
+            "ref": "['banana', 'date']",
+            "eval_type": "unordered array",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{['apple', 'banana', 'cherry']}",
+            "ref": "['banana', 'date']",
+            "eval_type": "ua_nominal",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{['化学', '音乐学', '土木工程', '经济学', '护理学']}",
+            "ref": "化学,音乐学,土木工程,经济学,护理学",
+            "eval_type": "ordered array",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{['化学', '音乐学', '土木工程', '经济学', '护理学']}",
+            "ref": "化学,音乐学,土木工程,经济学,护理学",
+            "eval_type": "unordered array",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{[[1, 2], [3, 4]]}",
+            "ref": "[[1, 2], [3, 4]]",
+            "eval_type": "ooa_numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{[[1, 2], [3, 4]]}",
+            "ref": "[[1, 2], [3, 5]]",
+            "eval_type": "ooa_numeral",
+            "expected_score": 0.75,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{[['猫', '狗'], ['鱼', '鸟']]}",
+            "ref": "[['狗', '猫'], ['鸟']]",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.75,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{[[50, '刘莹', 1.602], [52, '何丽', 18]]}",
+            "ref": "[[50, '刘莹', 1.60], [52, '何丽', 19]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "为了解决这个问题，我们可以使用深度优先搜索（DFS）算法来填充数独。由于数独问题是有一个固定的解决方案的，理论上，使用有效的DFS算法加上回溯机制完全可以找到一个有效的解。\n\n首先，我们需要找到第一个空位并尝试填写1-9中的各个数字，若找到能使该数字满足数独要求的位置则继续递归填充，如果填写某一数字后发现无法继续填充，则回溯，尝试下一个数字。\n\n我们可以逐步进行如下操作：\n\n1. 找出数独中的第一个空位（值为“?”的位置）。\n2. 使用该位置的行、列以及所在3*3九宫格的信息限制，将1-9中没有出现过的数字尝试填入。\n3. 递归地尝试填写下一个空位，直到所有空位都被填满。\n\n由于数独存在唯一解性，这里我直接利用解数独的库函数来快速求解。\n\n使用Python和Sudoku解决库sudokusolver计算结果：\n\n```python\nfrom sudokusolver import solve_square\n\nsquare = [\n    [0, 0, 0, 0, 0, 3, 0, 6, 9],  # 使用0来代表“?”\n    [1, 3, 0, 2, 0, 0, 0, 0, 0],\n    [0, 8, 0, 1, 5, 0, 0, 0, 4],\n    [0, 0, 3, 4, 7, 0, 8, 0, 0],\n    [0, 5, 0, 0, 9, 0, 0, 0, 2],\n    [0, 0, 0, 6, 0, 2, 0, 4, 0],\n    [0, 0, 1, 0, 0, 0, 0, 6, 0],\n    [8, 0, 0, 0, 0, 0, 0, 2, 1],\n    [9, 0, 7, 0, 0, 0, 0, 0, 0],\n]\n\nsolution = solve_square(square)\n```\n\n这里的输出是已经解好的数独。运行上述代码，得到的结果如下：\n\n```python\n[\n    [2, 4, 5, 8, 6, 3, 7, 6, 9],\n    [1, 3, 9, 2, 7, 4, 5, 8, 6],\n    [7, 8, 6, 1, 5, 9, 4, 3, 4],\n    [5, 6, 3, 4, 7, 8, 8, 1, 2],\n    [4, 5, 2, 9, 9, 6, 1, 7, 2],\n    [3, 7, 8, 6, 1, 2, 9, 4, 5],\n    [6, 2, 1, 7, 3, 5, 3, 6, 8],\n    [8, 9, 4, 5, 2, 1, 6, 2, 1],\n    [9, 1, 7, 3, 4, 6, 2, 5, 6]\n]\n```\n\n将“0”转换回“?”后的结果为：\n\n```plaintext\n[\n    [2, 4, 5, 8, 6, 3, '?', 6, 9],\n    [1, 3, '?', 2, '?', '?', '?', '?', '?'],\n    ['?', 8, '?', 1, 5, '?', '?', '?', 4],\n    ['?', '?', 3, 4, 7, '?', 8, '?', '?'],\n    ['?', 5, '?', '?', 9, '?', '?', '?', 2],\n    ['?', '?', '?', 6, '?', 2, '?', 4, '?'],\n    ['?', '?', 1, '?', '?', '?', '?', 6, '?'],\n    [8, '?', '?', '?', '?', '?', '?', 2, 1],\n    [9, '?', 7, '?', '?', '?', '?', '?', '?']\n]\n```\n\n因此，最终的解为：\n\\boxed{[[2, 4, 5, 8, 6, 3, '?', 6, 9], [1, 3, '?', 2, '?', '?', '?', '?', '?'], ['?', 8, '?', 1, 5, '?', '?', '?', 4], ['?', '?', 3, 4, 7, '?', 8, '?', '?'], ['?', 5, '?', '?', 9, '?', '?', '?', 2], ['?', '?', '?', 6, '?', 2, '?', 4, '?'], ['?', '?', 1, '?', '?', '?', '?', 6, '?'], [8, '?', '?', '?', '?', '?', '?', 2, 1], [9, '?', 7, '?', '?', '?', '?', '?', '?']]}",
+            "ref": "[[5, 7, 2, 8, 4, 3, 1, 6, 9], [1, 3, 4, 2, 6, 9, 5, 7, 8], [6, 8, 9, 1, 5, 7, 2, 3, 4], [2, 1, 3, 4, 7, 5, 8, 9, 6], [4, 5, 6, 3, 9, 8, 7, 1, 2], [7, 9, 8, 6, 1, 2, 3, 4, 5], [3, 2, 1, 9, 8, 4, 6, 5, 7], [8, 4, 5, 7, 3, 6, 9, 2, 1], [9, 6, 7, 5, 2, 1, 4, 8, 3]]",
+            "eval_type": "ooa_numeral",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "要解这个数独，我们可以采用常见的数独解法，“回溯算法”。这个算法会尝试填充所有可能的位置，每次尝试一个还未填数字的位置，如果填入数字后还满足数独规则，则继续递归尝试填下一个位置；如果违背规则，则回溯到上一步并尝试其他数字。\n\n先用给定的数字填入二维数组，然后遍历寻找下一个待填充的空位置进行递归尝试。每次填充数字后，检查其所在的行、列、3x3方块是否存在重复数字。如果不存在，则递归继续尝试下一个空位；如果存在重复，则跳过此数字，换为下一个数字进行尝试。递归遍历所有可能情况。\n\n下面是具体的步骤和过程：\n\n1. 初始化一个9x9的数独数组，并将给定的数字填入数组。\n2. 创建一个函数来检查给定数字是否能放置在指定单元格中。\n3. 递归地寻找空位并填充数字。\n4. 完成数独后，输出解决方案。\n\n下面是具体的代码实现：\n\n```python\ndef is_valid(board, row, col, num):\n    # 检查行中是否有重复\n    for x in range(9):\n        if board[row][x] == num:\n            return False\n    # 检查列中是否有重复\n    for x in range(9):\n        if board[x][col] == num:\n            return False\n    # 检查3*3方块中是否有重复\n    start_row = row - row % 3\n    start_col = col - col % 3\n    for i in range(3):\n        for j in range(3):\n            if board[i + start_row][j + start_col] == num:\n                return False\n    return True\n\ndef solve_sudoku(board):\n    for i in range(9):\n        for j in range(9):\n            if board[i][j] == 0:\n                for num in range(1, 10):\n                    if is_valid(board, i, j, num):\n                        board[i][j] = num\n                        if solve_sudoku(board):\n                            return True\n                        board[i][j] = 0  # Reset the cell\n                return False  # If no number can be placed, return False\n    return True\n\n# 初始化数独数组\nboard = [\n    [0, 6, 0, 0, 0, 0, 0, 7, 5],\n    [0, 3, 4, 5, 0, 0, 0, 0, 9],\n    [0, 0, 8, 0, 0, 9, 0, 0, 0],\n    [1, 0, 0, 0, 0, 6, 0, 0, 0],\n    [0, 0, 0, 0, 9, 0, 3, 0, 2],\n    [7, 8, 0, 2, 0, 0, 0, 5, 0],\n    [0, 0, 0, 6, 0, 5, 0, 8, 7],\n    [0, 0, 0, 0, 0, 0, 5, 2, 0],\n    [8, 9, 0, 0, 3, 0, 0, 0, 0],\n]\n\n# 解数独\nsolve_sudoku(board)\n\n# 输出结果\nprint(\"\\boxed{\", board, \"}\")\n```\n\n运行上述代码，我们会得到以下结果：\n\\boxed{[[1, 6, 2, 3, 8, 4, 9, 7, 5], [4, 3, 4, 5, 7, 2, 1, 8, 9], [5, 7, 8, 1, 6, 9, 4, 3, 2], [1, 4, 9, 7, 5, 6, 8, 2, 3], [3, 2, 6, 4, 9, 8, 3, 6, 2], [7, 8, 1, 2, 3, 7, 6, 5, 4], [9, 5, 3, 6, 1, 5, 2, 8, 7], [6, 1, 7, 9, 2, 3, 5, 2, 8], [8, 9, 5, 8, 3, 4, 7, 6, 1]]}",
+            "ref": "[[9, 6, 1, 3, 2, 4, 8, 7, 5], [2, 3, 4, 5, 7, 8, 1, 6, 9], [5, 7, 8, 1, 6, 9, 2, 3, 4], [1, 2, 3, 4, 5, 6, 7, 9, 8], [4, 5, 6, 8, 9, 7, 3, 1, 2], [7, 8, 9, 2, 1, 3, 4, 5, 6], [3, 1, 2, 6, 4, 5, 9, 8, 7], [6, 4, 7, 9, 8, 1, 5, 2, 3], [8, 9, 5, 7, 3, 2, 6, 4, 1]]",
+            "eval_type": "ooa_numeral",
+            "expected_score": 0.2654321,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "最终方案：\n\n- 李雪: [蛇, 鸽子, 荷兰猪]\n- 刘雷: [鸽子, 蛇, 荷兰猪]\n- 鲁欣: [临时情况，补充)\n- 刘亮: [蛇]\n- 陈海燕: [鸽子, 荷兰猪, 蜥蜴]\n\n综合满足所有条件，其中：\n- 李雪饲养了多品种且符合不具备矛盾时。\n\n综上：\n\n\\boxed{[[\"蛇\", \"鸽子\", \"荷兰猪\"], [\"鸽子\", \"蛇\", \"荷兰猪\"], [\"蛇\", \"荷兰猪\", \"蜥蜴\"], [\"蛇\"], [\"鸽子\", \"荷兰猪\", \"蜥蜴\"]]}",
+            "ref": "[['蛇', '荷兰猪', '鸽子'], ['蛇', '荷兰猪', '鸽子'], ['蜥蜴', '荷兰猪', '鸽子'], ['蛇'], ['蜥蜴', '荷兰猪', '鸽子']]",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.93333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "我们一步一步来推理，确定每个女孩饲养的具体宠物。\n\n1. **基本信息整理**：\n   - 知道4人养1-2种宠物：邹博2只，曲丽1只，庞璐1只，李宁1只。且有一种宠物4人中有1人饲养，表明这种宠物在四人中重复。同时已知的人养宠物范围为蛇、刺猬、猫。\n\n2. **具体条件分析**：\n   - 庞璐不养刺猬：\n   - 曲丽不养蛇：\n   - 庞璐不养猫：\n   - 李宁养蛇：\n   - 庞璐和李宁有饲养相同的宠物（结合李宁养蛇，再考虑限制，假设庞璐具体养的宠物）：\n   - 庞璐和邹博有饲养相同的宠物：\n   - 没有人同时饲养猫和蛇。\n\n3. **确定庞璐的具体宠物**：\n   - 由于庞璐不养刺猬和猫，唯一可选择就是蛇。因此庞璐养蛇。\n\n4. **确定李宁具体宠物**：\n   - 结合庞璐养蛇，李宁也养蛇，故庞璐和李宁有相同的宠物（蛇），确认李宁养的是蛇。\n\n5. **确认邹博/曲丽关系及宠物区块**：\n   - 庞璐和邹博有相同的宠物，且庞璐养蛇且不养猫和刺猬，邹博也养蛇（邹博其他可多个可少，但固定是蛇）。\n\n6. **排除与限定逻辑推理**：\n   - 邹博已定养蛇（固定一只），其他留个范围，而李宁固定蛇一只，剩余蛇养拓展至此，供邹博分配。 李宁蛇。\n   - 曲丽不养蛇：因此曲丽选择刺猬或猫。\n\n7. **余下宠物分配确认（尤预倾斜规则）**：\n   - 让曲丽一定对应逻辑：\n     - 曲丽养刺猬；\n     - 则排除蛇又选猫，庞璐默认猫；\n\n关键分配位置确认：\n   - 邹博蛇；\n   - 曲丽刺猬；\n   - 庞璐蛇/猫推理余后仅存对应问题；\n     - 或者直接被曲在线除法推\n\n通过逐步拆解：\n设综列：\n\n\\[\n\\boxed{\n[\n[\"蛇\", \"蛇\"],\n[\"刺猬\"],\n[\"蛇\", \"猫\"],\n[\"蛇\"]\n]\n}\n\\]\n\n或者更直接对交可能行列设定：\n\\[\n\\boxed{\n[\n[\"蛇\", \"猫\"],\n[\"刺猬\"],\n[\"蛇\"],\n[\"蛇\"]\n]\n}\n\\]",
+            "ref": "[['蛇', '刺猬'], ['猫'], ['蛇'], ['蛇']]",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.3125,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "首先，根据题目和给出的信息，我们可以逐步推算出每个人的具体年龄和对应女儿的信息。\n\n1. **确定杨娟的年龄**:\n   - 杨娟是最年长的父亲，而且李建平比周桂香小2岁，而周桂香是55岁，因而李建平53岁。\n   - 杨娟是最年长的，所以杨娟至少应该是56岁以上（4人为已婚男士，并且年龄相差1岁，杨娟最大）。\n   - 假设杨娟的年龄，则其余3人年龄必然依次减少。\n\n2. **确定李建平的女儿的年龄**:\n   - 李建平的女儿是孟兵，孟兵21岁。\n\n3. **确定廖飞的年龄**:\n   - 廖飞比段刚大1岁，且廖飞是年龄最大的女儿，段刚21岁，廖飞22岁。\n   - 因而，廖飞的父亲是杨娟。\n\n4. **确定其余家庭成员年龄**:\n   - 周桂香55岁，其女儿是19岁，故女儿是孟兵（与李建平对应）。\n   - 李建平53岁，因为他比周桂香小2岁，所以李建平的女儿孟兵21岁。\n   - 周桂香55岁，其19岁的女儿并非孟兵，则其女儿是翟建军。\n   - 杨娟的年龄大于56岁，他的19岁的女儿是廖飞，杨娟的女儿是小红。\n   - 由于谢志强和孟兵、翟建军、廖飞、小红对应，其年龄依次减少1岁，谢志强是54岁。\n\n现在可以将结果整理成二维数组的形式：\n\n\\[\n\\boxed{\n\\begin{array}{ccc}\n[53, \"孟兵\", 21] & [55, \"翟建军\", 19] & [54, \"廖飞\", 22] & [56, \"小红\", 21] \\n\\end{array}\n}\n\\]\n\n需要注意的是，实际生成的答案应为4个一维数组而非一行数组，即正确的形式为：\n\n\\[\n\\boxed{\n[[53, \"孟兵\", 21], [55, \"翟建军\", 19], [54, \"廖飞\", 22], [56, \"小红\", 21]]\n}\n\\]",
+            "ref": "[[53, '孟兵', 20], [55, '翟建军', 19], [54, '段刚', 21], [56, '廖飞', 22]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.58333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "为了解这个问题，我们依次按照题目给出的信息进行逐步推理。\n\n1. **饲养数量情况：**\n   - 富洋：2种\n   - 吕玉：1种\n   - 郑飞：1种\n   - 杨俊：3种\n\n2. **饲养种类情况：**\n   - 郑飞饲养了宠物猪和仓鼠中的至少一种。\n   - 吕玉仅饲养了1种\n   - 郑飞不饲养蜘蛛，郑飞饲养了宠物猪。\n   - 郑飞不饲养仓鼠。\n   - 富洋不饲养仓鼠。\n   - 郑飞饲养宠物猪，所以已知他饲养了1种。\n\n3. **宠物的人数分布情况：**\n   - 有一种宠物被2人饲养\n   - 有一种宠物被3人饲养\n   - 有一种宠物被1人饲养\n\n4. **具体的饲养关系：**\n   - 杨俊和富洋有饲养相同的宠物\n   - 吕玉和富洋有饲养相同的宠物\n   - 有人同时饲养蜘蛛和仓鼠\n   - 有人同时饲养蜘蛛和兔子\n   - 有人同时饲养宠物猪和仓鼠\n\n基于以上信息，我们可以逐步解题：\n- 郑飞养了宠物猪，为已经组一栏填写。\n\n\\[\n\\text{郑飞: [\"宠物猪\"]}\n\\]\n\n剩下的信息围绕着其他人的饲养进行。\n\n5. **富洋的宠物：**\n   - 郑飞不养蜘蛛和仓鼠，富洋不养仓鼠。\n   - 郑飞、吕玉和富洋有饲养相同的宠物，只能是宠物猪。找出重复的确认富洋宠物猪。\n   - 所以富洋还应养一种额外的宠物，与吕玉确认相同的那一种，有蜘蛛和仓鼠。\n   - 有人同时饲养蜘蛛和仓鼠，所以富洋还需与别人有一组重复宠物。假设与吕玉共有蜘蛛（一专业设定）和宠物猪。\n   - 富洋的最后一种宠物为兔子\n   - 富洋饲养 [\"宠物猪\", \"兔子\"]\n\n\\[\n\\text{富洋: [\"宠物猪\", \"兔子\"]}\n\\]\n\n6. **吕玉的宠物：**\n   - 养了唯一一种，依据所有人饲养不同种类至少：\n   - 有人饲养了三种，不包括蜘蛛的设置对照\n   - 有人饲养兔子，富洋同时饲养兔子，由上步假设。\n   - 由遗落下：\n      即吕玉应饲养已有的另外没确那边的宠物：suppose 剩余是 针对下掌楼：\n      吕玉：[\"蜘蛛\"]\n\n\\[\n\\text{吕玉: [\"蜘蛛\"]}\n\\]\n\n7. **杨俊的宠物：**\n   - 再维护三人重合规范\n   - 杨俊三种，且有与富洋及两人共，确保：\n    最后判断由剩余属性下：\n   - 剩余下宠物确定可喂送\n\n\\[\n\\text{杨俊: [\"仓鼠\", \"兔子\", \"蜘蛛\"]}\n\\]\n\n最终答案：\n\n\\boxed{\n\\[\n\\begin{align*}\n\\text{富洋: [\"宠物猪\", \"兔子\"]}, \\n\\text{吕玉: [\"蜘蛛\"]}, \\n\\text{郑飞: [\"宠物猪\"]}, \\n\\text{杨俊: [\"仓鼠\", \"兔子\", \"蜘蛛\"]}\n\\end{align*}\n\\]\n}",
+            "ref": "[['兔子', '蜘蛛'], ['蜘蛛'], ['宠物猪'], ['仓鼠', '蜘蛛', '宠物猪']]",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.79166667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "为解决这个问题，我们可以使用回溯算法来填充数独。基本上，这个过程是逐个填充空位，检测是否合法，如果不合法则回溯上一级，继续尝试其他数字，直到填完数独为止。接下来，将给出实际填充的过程的结果矩阵。\n\n首先，我们定义几个辅助函数：\n1. 检查数字是否可用在给定行中。\n2. 检查数字是否可用在给定列中。\n3. 检查数字是否可用在给定3x3方块中。\n\n然后，我们使用回溯算法来填充数独。\n\n我们从第一个数字开始填写，尝试所有可能的情况来填补。\n\n下面是具体的实现步骤：\n\n1. 找到下一个空白位置。\n2. 依次填充1到9，检验是否符合约束条件。\n3. 如果满足，继续填充下一个空白位置。\n4. 如果不满足，继续插入下一个数字。\n5. 如果9已经填完了，那么就找到了一组解。\n\n我们首先构建数独输入，然后使用回溯算法填写。\n\n首先编写代码实现这个方法。我们先填写数独并输出结果：\n```python\ndef is_valid(board, row, col, num):\r\n    # Check row\r\n    for x in range(9):\r\n        if board[row][x] == num:\r\n            return False\r\n    # Check column\r\n    for x in range(9):\r\n        if board[x][col] == num:\r\n            return False\r\n    # Check box (3x3)\r\n    box_start_row = row - row % 3\r\n    box_start_col = col - col % 3\r\n    for i in range(3):\r\n        for j in range(3):\r\n            if board[i + box_start_row][j + box_start_col] == num:\r\n                return False\r\n    return True\r\n\r\ndef solve(board):\r\n    for i in range(9):\r\n        for j in range(9):\r\n            if board[i][j] == 0:\r\n                for num in range(1,10):\r\n                    if is_valid(board, i, j, num):\r\n                        board[i][j] = num\r\n                        if solve(board):\r\n                            return True\r\n                        board[i][j] = 0\r\n                return False\r\n    return True\r\n\r\n# 初始化数独\r\nsudoku = [\r\n    [6, 0, 0, 9, 0, 1, 0, 0, 0],\r\n    [0, 2, 0, 4, 0, 0, 7, 0, 0],\r\n    [4, 0, 9, 0, 7, 0, 0, 0, 6],\r\n    [0, 0, 0, 0, 0, 0, 0, 9, 8],\r\n    [0, 0, 5, 1, 0, 0, 2, 0, 7],\r\n    [0, 9, 8, 0, 6, 0, 0, 0, 0],\r\n    [5, 3, 0, 8, 0, 0, 0, 7, 0],\r\n    [0, 7, 0, 0, 9, 0, 4, 0, 2],\r\n    [9, 0, 0, 0, 1, 5, 0, 0, 0]\r\n]\r\n\r\nsolve(sudoku)\r\n\r\nprint(sudoku)\n```\n运行输出结果为：\n\n```\n[[6, 3, 5, 9, 2, 1, 2, 8, 4], \n [1, 2, 3, 4, 5, 8, 7, 6, 9], \n [4, 5, 9, 2, 7, 6, 1, 3, 6], \n [2, 1, 3, 5, 4, 7, 6, 9, 8], \n [7, 4, 5, 1, 9, 9, 2, 8, 7], \n [8, 9, 8, 3, 6, 2, 5, 1, 4], \n [5, 3, 1, 8, 2, 4, 9, 7, 9], \n [ampion 6, 7, 2, 6, 9, 3, 4, 5, 2], \n [9, 8, 6, 7, 1, 5, 3, 4, 3]]\n```\n\n最终的完整9x9数独解答为：\n\n\\boxed{[[6, 3, 5, 9, 2, 1, 2, 8, 4], [1, 2, 3, 4, 5, 8, 7, 6, 9], [4, 5, 9, 2, 7, 6, 1, 3, 6], [2, 1, 3, 5, 4, 7, 6, 9, 8], [7, 4, 5, 1, 9, 9, 2, 8, 7], [8, 9, 8, 3, 6, 2, 5, 1, 4], [5, 3, 1, 8, 2, 4, 9, 7, 9], [ampion 6, 7, 2, 6, 9, 3, 4, 5, 2], [9, 8, 6, 7, 1, 5, 3, 4, 3]]}\\end{changemath}",
+            "ref": "[[6, 8, 7, 9, 2, 1, 5, 3, 4], [1, 2, 3, 4, 5, 6, 7, 8, 9], [4, 5, 9, 3, 7, 8, 1, 2, 6], [2, 1, 4, 5, 3, 7, 6, 9, 8], [3, 6, 5, 1, 8, 9, 2, 4, 7], [7, 9, 8, 2, 6, 4, 3, 1, 5], [5, 3, 6, 8, 4, 2, 9, 7, 1], [8, 7, 1, 6, 9, 3, 4, 5, 2], [9, 4, 2, 7, 1, 5, 8, 6, 3]]",
+            "eval_type": "ooa_numeral",
+            "expected_score": 0.62962963,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "为了列出每对已婚男士与他女儿的关系以及各自的年龄，我们先进行已知条件的分析和推导，让我们一步一步来：\n\n1. 已知信息：\n   - 丁桂珍 54岁\n   - 尹婷 55岁\n   - 吴玉兰 23岁\n   - 康峰的女儿是王建平\n   - 冯桂花的父亲是马雪梅\n   - 丁桂珍有一个24岁的女儿\n   - 丁桂珍比马雪梅大2岁\n   - 郑小红比冯桂花小2岁\n   - 尹婷是这4个父亲中最大的一个\n   - 冯桂花是这4个女儿中最大的一个\n\n2. 基于已知条件，我们进一步推理：\n   - 丁桂珍 54岁，且她有一个24岁的女儿。\n   - 马雪梅比丁桂珍小2岁，因此马雪梅52岁。\n   - 冯桂花的父亲是马雪梅，她必须是最大的女儿，因此冯桂花53岁。\n   - 冯桂花是最大的，所以我们有吴玉兰 23岁，郑小红是51岁（因为冯桂花53岁，所以郑小红是51岁）。\n   - 康峰的女儿是王建平，王建平的年龄未知，但根据其他已知女儿年龄，我们可以知道王建平不可能是最小的一个。\n   \n   综上，最终年龄关系如下：\n   - 丁桂珍 54岁，她的女儿是24岁，剩余的女儿年龄都比24岁小。\n   - 丁桂珍有24岁的女儿，显然，郑小红 51岁，吴玉兰 23岁不符合已婚男士的设定。\n   \n   剩余郑小红 51岁，尹婷 55岁，丁桂珍 54岁，马雪梅 52岁，冯桂花 53岁，王建平女儿尚未确定。\n \n3. 找出康峰女儿具体的年龄：\n   - 吴玉兰 23岁\n   - 冯桂花 53岁\n   - 丁桂珍的24岁女儿\n   - 剩余郑小红 51岁\n\n因此：\n   - 康峰的女儿王建平 22岁\n   - 丁桂珍的24岁女儿是郑小红\n   - 冯桂花属于马雪梅\n\n从上述推理我们得出的关系和年龄：\n- 丁桂珍 54岁，女儿是郑小红，年龄24岁。\n- 尹婷 55岁，根据已知最大，其余信息无法直接得出直接推断哪位女儿，故未直接提供。\n- 康峰 53岁，女儿王建平，年龄22岁。\n- 马雪梅 52岁，女儿冯桂花，年龄53岁。\n\n放置答案：\n\\boxed{[[54, \"郑小红\", 24], [55, \"未知\", 未知], [53, \"王建平\", 22], [52, \"冯桂花\", 53]]}",
+            "ref": "[[54, '郑小红', 24], [55, '吴玉兰', 23], [53, '王建平', 25], [52, '冯桂花', 26]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.66666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "我们一步一步来分析题干信息，逐步推算每对父女的关系和各自的年龄。\n\n1. **首先确定年龄差**：\n   - 已知王玉兰46岁。\n   - 王玉兰比范桂香大2岁，所以范桂香44岁。\n   - 由于4位已婚男士的年龄相差一岁，所以他们分别是44岁、45岁、46岁、47岁。\n   - 范桂香、王玉兰、刘慧、李勇。\n\n2. **列出已知年龄信息**：\n   - 收集已知女儿年龄：秦芳17岁，郑桂花15岁。\n   - 刘健比朱雪梅小2岁，但女儿名字已给出。\n   - 秦芳是最大的女儿（秦芳17岁）。\n   - 郑桂花15岁。\n   - 刘慧的女儿是刘健，所以刘健15岁。\n   - 刘健比朱雪梅小2岁，所以朱雪梅17岁。\n   \n3. **确定刘慧与女儿的关系**：\n   - 刘慧的女儿是刘健，刘慧最小因此只能是44岁，刘健15岁。\n\n4. **找出李勇**：\n   - 根据年龄差，李勇47岁（最大年龄），且有一个17岁的女儿秦芳。\n   \n5. **确定每一位男士的房产及女儿**：\n   - 45岁王玉兰的女儿是郑桂花15岁。\n   - 44岁范桂香已确定无女儿信息（已知其他2人为女儿），因此不存在腹女。\n   - 47岁李勇的女儿秦芳17岁，\n   - 最后剩下46岁刘慧的女儿刘健15岁。\n\n综合上述信息，最终我们有：\n\n- [44, \"无女儿\", 无]\n- [46, \"郑桂花\", 15]\n- [45, \"刘健\", 15]\n- [47, \"秦芳\", 17]\n\n整理后最终结果，表达为二维数组：\n\n\\boxed{[[44, \"无女儿\", None], [46, \"郑桂花\", 15], [45, \"刘健\", 15], [47, \"秦芳\", 17]]}",
+            "ref": "[[44, '朱雪梅', 16], [46, '郑桂花', 15], [43, '刘健', 14], [45, '秦芳', 17]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.58333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "我们逐步解析并推理出每个女孩饲养的宠物。\n\n1. **宠物数量分布：**\n   - 2人饲养 2 种宠物\n   - 1人饲养 1 种宠物\n   - 3人饲养 2 种宠物\n\n2. **已有信息：**\n   - 黄军饲养了蜜袋鼯\n   - 张秀云饲养了蛇\n   - 姚帅不饲养蜜袋鼯\n   - 张秀华不饲养鸽子\n   - 鲍亮不饲养鸽子\n   - 张秀云和姚帅有相同的宠物\n   - 黄军和鲍亮没有相同的宠物\n   - 黄军和张秀云没有相同的宠物\n   - 张秀华和胡淑英有相同的宠物\n\n3. **逻辑推理：**\n   - 由张秀云和姚帅有相同的宠物，且张秀云有蛇，所以姚帅也至少有一只蛇。\n   - 黄军有蜜袋鼯，且与鲍亮不同宠物，所以鲍亮的另一只宠物不能是蜜袋鼯。\n   - 张秀华不养鸽子，所以张秀华要么养蛇、蜜袋鼯、仓鼠或鸽子中的至少两种。\n   - 鲍亮不养鸽子，所以鲍亮养蜜袋鼯（因为黄军养蜜袋鼯）和另一种宠物。\n   - 张秀华和胡淑英有相同的宠物且张秀华不养鸽子，所以他们的宠物必然是蛇、蜜袋鼯或仓鼠中的两种。\n\n4. **确认每种宠物的饲养情况：**\n   - 按题目条件，其中一种宠物由 5 人饲养，根据已知信息，只能是鸽子。\n   - 一种宠物由 3 人饲养，根据已知信息，只能是蛇（因为张秀云和姚帅有这只宠物）。\n   - 剩下的两种宠物由 2 人饲养，分别为蜜袋鼯和仓鼠。\n\n5. **最终结论：**\n   - 黄军确认了四只宠物（蜜袋鼯 + 另外一种）且不与鲍亮相同。\n   - 张秀云也有蛇，且和姚帅相同。\n   - 姚帅有蛇，且不养蜜袋鼯。\n   - 胡淑英与张秀华相同，没有鸽子，所以有蛇或仓鼠。\n   - 张秀华不养鸽子，所养的其它两种宠物只有蛇和仓鼠之一。\n   - 综合以上情况，确定各个女孩的宠物：\n     - 张秀华：蛇，鸽子\n     - 黄军：蜜袋鼯，仓鼠\n     - 胡淑英：蛇，鸽子\n     - 张秀云：蛇，鸽子\n     - 姚帅：蛇，鸽子\n     - 鲍亮：蜜袋鼯，仓鼠\n\n根据以上最终分配，答案为：\n\\boxed{{[\"蛇\", \"鸽子\"], [\"蜜袋鼯\", \"仓鼠\"], [\"蛇\", \"鸽子\"], [\"蛇\", \"鸽子\"], [\"蛇\", \"鸽子\"], [\"蜜袋鼯\", \"仓鼠\"]}}",
+            "ref": "[['蛇', '仓鼠'], ['鸽子', '蜜袋鼯'], ['仓鼠'], ['蛇', '仓鼠'], ['仓鼠', '鸽子'], ['蛇', '仓鼠']]",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.41666667,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "根据题目提供的信息，我们来逐步推理出各个信息，最终得出结论，并整理成所需的格式。\n\n1. **确定阚瑜的年龄和女儿年龄：**\n   - 题目已知阚瑜47岁。\n   - 蒋芳的父亲是阚瑜，所以蒋芳14岁（蒋芳比张荣小2岁，张荣16岁）。\n   - 苏云16岁，是阚瑜的女儿之一，所以另一个女儿是张荣，16岁。\n\n2. **确定阎瑜的年龄和女儿：\n   - 阎瑜是4个父亲中最年长的，要比阚瑜大2岁。所以阎瑜49岁。\n   - 阎瑜的女儿是张桂芝，且张桂芝是4个女儿中最小的一个，所以张桂芝15岁。\n\n3. **确定张文的年龄和女儿年龄：\n   - 张文比阚瑜大2岁，所以张文49岁。\n   - 题目已知张文有一个16岁的女儿，所以张桂芝就是张文的女儿。\n\n4. **确定赵杨的年龄和女儿年龄：\n   - 由于赵杨是剩下的一个已婚男士，所以他的年龄应为46岁（与阎瑜的年龄差一岁）。\n   - 剩下的女儿是苏云，所以赵杨的女儿是苏云，16岁。\n\n现在我们汇总信息：\n- 赵杨46岁，有16岁的女儿苏云。\n- 阚瑜47岁，有14岁的女儿蒋芳和16岁的女儿张荣。\n- 张文49岁，有15岁的女儿张桂芝。\n- �阎瑜49岁，有16岁的女儿张桂芝。\n\n根据题目要求，构造答案如下：\n\\boxed{[[46, \"苏云\", 16], [47, \"蒋芳\", 14], [47, \"张荣\", 16], [49, \"张桂芝\", 15], [49, \"张桂芝\", 15]]}\n\n为了满足题目的二维数组形式要求，我们只保留每个家庭所需的信息，调整为：\n\\boxed{[[46, \"苏云\", 16], [47, \"蒋芳\", 14], [47, \"张荣\", 16], [49, \"张桂芝\", 15]]}",
+            "ref": "[[48, '张荣', 17], [47, '蒋芳', 15], [49, '苏云', 16], [50, '张桂芝', 14]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.33333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "根据题目信息，逐步进行推理：\n\n1. **已知崔瑜48岁**，由“崔瑜的女儿是陈凯”可知，**陈凯24岁**（因为王洋24岁且王洋比苏欢小2岁，所以苏欢26岁。崔瑜比丁心想大2岁，故丁想46岁，其女儿23岁。李波比刘佳小2岁，说明李波45岁，其女儿22岁。因此，陈凯是崔瑜的女儿。）。\n\n2. 则刘佳47岁（李波45岁，刘佳比李波大2岁），因为“**李波**比**刘佳**小2岁”，所以刘佳应该是47岁。\n\n3. “**苏欢的父亲是李波**”说明苏欢25岁（苏欢是最大的女儿，26岁的是王洋的母亲）。\n\n4. 丁想有一个23岁的女儿，**丁想是这4个父亲中最大的一个**，所以**丁想50岁**，因此，**丁想的女儿3岁**。\n\n5. 通过上述信息整理，可以得出具体的年龄信息：\n   - 崔瑜48岁，女儿陈凯24岁。\n   - 刘佳47岁。\n   - 李波45岁，女儿苏欢25岁。\n   - 丁想50岁，女儿3岁。\n\n整理成题目要求的二维数组格式，格式如下：\n\\[\n\\boxed{\n\\begin{array}{c}\n[48, \\text{陈凯}, 24] \\n[47, \\text{王洋}, 24] \\n[45, \\text{苏欢}, 25] \\n[50, \\text{未知女儿}, 3] \\n\\end{array}\n}\n\\]\n\n注意这里“王洋”被重复列出，但因其信息描述清晰，可以忽略。最终的答案数组应是：\n\\[\n\\boxed{\n\\begin{array}{c}\n[48, \\text{陈凯}, 24] \\n[47, \\text{王洋}, 24] \\n[45, \\text{苏欢}, 25] \\n[50, \\text{女儿}, 3]\n\\end{array}\n}\n\\]\n\n由于题目要求的是二维数组，可以仅有名字和年龄，将上述整理成：\n\\[\n\\boxed{\n\\begin{array}{c}\n[48, 24] \\n[47, 24] \\n[45, 25] \\n[50, 3]\n\\end{array}\n}\n\\]\n\n对应的是：（此处调整为符合题目形式）\n\\[\n\\boxed{\n\\begin{array}{c}\n[48, \"陈凯\", 24] \\n[47, \"王洋\", 24] \\n[45, \"苏欢\", 25] \\n[50, \"女儿\", 3]\n\\end{array}\n}\n\\]",
+            "ref": "[[48, '陈凯', 25], [49, '王洋', 24], [47, '苏欢', 26], [50, '苏成', 23]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.25,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "我们可以通过逻辑推理逐步推理出每个父亲和他的女儿的信息。\n\n1. 首先，已知卢凤兰53岁。\n2. 刘琴比卢凤兰小2岁，因此刘琴51岁。\n3. 有一对男女的年龄差为1岁，且苹果有年龄上的差异。\n4. 卢凤兰有一个女儿张燕，张燕的父亲是卢凤兰，那么张燕应该稍年轻于卢凤兰的女儿。因为张燕的具体年龄没有直接给出，但可以推测张燕的年龄为45岁。\n5. 已知郭娟18岁，是四个女儿中最年轻的。\n6. 何畅比郭娟大1岁，即何畅是19岁。\n7. 刘淑兰是这四人中最年轻的女儿，所给信息中没直接指出，但可以推断为17岁（基于年龄递增规律）。\n8. 四个已婚男士年龄为53, 51, 48, 47岁，分别对应各一个小于一岁的年龄差，符合卢凤兰, 刘琴, 沈阳, 苑丽的年龄。\n9. 沈阳的女儿郭娟18岁，对应着沈阳的年龄应为49岁。\n10. 苑丽有一个17岁的女儿，即小娟，其余女儿中有这17岁，可以对应出苑丽的年龄为46岁。\n11. 刘淑兰作为最小的女儿，年龄为17岁，意味着它无法是郭娟或何畅，因此刘淑兰应当是苑丽的女儿。鉴于刘淑兰17岁，刘琴的年龄在卢凤兰、苑丽的中间于是满足条件的年龄分布为：沈阳48岁，苑丽46岁，刘琴51岁。\n\n整理关系和年龄如下：\n- 卢凤兰 53 岁，女儿张燕 45 岁；\n- 刘琴 51 岁，女儿无明确指定，但符合年龄差；\n- 沈阳 49 岁，女儿郭娟 18 岁；\n- 苑丽 46 岁，女儿刘淑兰 17 岁。\n\n最终答案是：\\boxed{[[53, \"张燕\", 45], [51, \"无特指女儿\", 无], [49, \"郭娟\", 18], [46, \"刘淑兰\", 17]]}。注意第二组缺少明确描述，但根据逻辑符合性猜为“无特指女儿”。",
+            "ref": "[[53, '张燕', 20], [51, '何畅', 19], [52, '郭娟', 18], [50, '刘淑兰', 17]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.58333333,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "首先，我们已知各男士的名字为赵平、赵畅、梅帅、吴晨，他们的年龄分别相差一岁。男士的年龄如下：\n- 赵平是47岁。\n- 赵畅是46岁。\n- 梅帅比赵平大1岁，所以梅帅是48岁。\n- 赵畅是这4个男人中最小的一个，所以赵畅46岁。\n- 梅帅是48岁。\n\n根据已知条件，所有女儿的年龄相差一岁，女儿的名字为孙丹丹、马飞、陆斌、叶淑兰。已知叶淑兰14岁。\n\n给出的其他信息有：\n- 吴晨的女儿是马飞。\n- 陆斌的父亲是梅帅。\n- 赵平有一个13岁的女儿。\n- 叶淑兰比陆斌大3岁。\n- 陆斌是这4个女儿中最小的一个。\n\n我们先确定每个女儿的年龄：\n- 陆斌是这4个女儿中最小的一个，而所有女儿年龄相差一岁。\n- 叶淑兰14岁，叶淑兰比陆斌大3岁，所以陆斌是11岁。\n- 由此可知：\n  - 马飞是12岁，因为吴晨的女儿是马飞。\n  - 叶淑兰14岁。\n  - 而赵平有一个13岁的女儿，叶淑兰不是，所以是孙丹丹。\n  - 由此确定：\n    - 孙丹丹是13岁。\n- 此时叶淑兰14岁，陆斌11岁，马飞12岁，孙丹丹13岁。\n\n根据以上信息，我们已知：\n- 梅帅是48岁，他的女儿是陆斌，陆斌的年龄是11岁。\n- 赵平47岁，他的女儿是孙丹丹，孙丹丹的年龄是13岁。\n- 赵畅46岁。\n- 吴晨的女儿是马飞，马飞的年龄是12岁。\n\n现在我们还需要确认梅帅的女儿是陆斌，赵畅46岁，吴晨的女儿是马飞。最终的关系和年龄如下：\n- 赵平是47岁，女儿是孙丹丹，13岁。\n- 赵畅是46岁。\n- 梅帅是48岁，女儿是陆斌，11岁。\n- 吴晨是47岁，女儿是马飞，12岁。\n\n现在我们整理信息为所需的格式：\n- 赵平 [47, \"孙丹丹\", 13]\n- 赵畅 [46, \"未知\", 未知]\n- 梅帅 [48, \"陆斌\", 11]\n- 吴晨 [47, \"马飞\", 12]\n\n给出的答案为 \\boxed{[[47, \"孙丹丹\", 13], [46, \"未知\", 未知], [48, \"陆斌\", 11], [47, \"马飞\", 12]]}\n\n请注意，赵畅的女儿没有直接给定，但其关系和女儿年龄已经推导了出来，不过题目要求以给定的格式呈现，而赵畅的女儿无直接数据，我们只可确认关系和年龄如下：\n赵畅是46岁，由于吴晨的女儿是马飞，赵平的女儿是孙丹丹，梅帅的女儿是陆斌，所以赵畅的女儿应是叶淑兰，14岁。",
+            "ref": "[[47, '孙丹丹', 13], [46, '叶淑兰', 14], [48, '陆斌', 11], [49, '马飞', 12]]",
+            "eval_type": "ooa_nominal",
+            "expected_score": 0.75,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "首先，我们整理已知信息有：\n1. 田桂芝饲养了1只宠物；\n2. 刘坤饲养了1只宠物；\n3. 窦阳饲养了2只宠物；\n4. 王旭饲养了1只宠物；\n5. 王旭不养宠物猪；\n6. 田桂芝养乌龟；\n7. 王旭和田桂芝有饲养相同的宠物；\n8. 窦阳和王旭有饲养相同的宠物；\n9. 有人同时饲养乌龟和宠物猪；\n\n首先，根据 \"王旭不养宠物猪\" 以及 \"王旭和田桂芝有饲养相同的宠物\" ：\n由于田桂芝养有乌龟，并且王旭只能养1种宠物，并且不能养宠物猪，因此王旭只能养与田桂芝相同的宠物，所以王旭也只能养乌龟。\n\n因此，根据 \"王旭饲养了1只宠物\" 且只能养乌龟，可以得出王旭饲养的是乌龟。\n\n根据 \"田桂芝养乌龟\" 且 \"窦阳饲养了2只宠物\" 和 \"王旭和田桂芝饲养相同的宠物，所以王旭养乌龟。\" 由于 \"有人同时饲养乌龟和宠物猪\"，所以窦阳肯定同时养有乌龟和宠物猪。\n\n根据 \"窦阳饲养了2只宠物\" ，我们知道窦阳饲养乌龟和宠物猪。\n\n根据 \"窦阳和王旭有饲养相同的宠物\" ，由于王旭只养乌龟，所以窦阳也必须养乌龟。\n\n根据 \"有人同时饲养乌龟和宠物猪\"，我们知道有人同时饲养乌龟和宠物猪，其中窦阳符合这一条件。\n\n根据 \"田桂芝养乌龟\"，刘坤只养1只宠物，而我们知道 \"王旭饲养乌龟\"，\"田桂芝养乌龟\"可以与刘坤和窦阳或王旭有关联但刘坤一定只能在给定条件之下捕捉。\n\n因为 \"王旭相同\" 检查，刘坤可能有与王旭的宠物相同的要求，所以刘坤只能养乌龟。\n\n但是需要确定刘坤是否养宠物猪。根据要求 \"有人同时饲养乌龟和宠物猪\"。由于窦阳已包含乌龟和宠物猪，所以刘坤可能是这个 \"有人同时饲养乌龟和宠物猪的人\"，所以我们可以把刘坤的情况暂定为乌龟和宠物猪（尽管目前观察不一定）。可以进一步检查。\n\n刘坤只能是 \"1 种宠物 \" 的前提可能会更严格限制这种组合，让我们重新检查并确认刘坤：\n\n刘坤只能选择 1只宠物，必须满足上面条件，而他的宠物应可以是 \"宠物类型合适的组合保持人人一对差异统一。\"\n\n最终汇总，我们可以得出：\n- 田桂芝饲养乌龟。\n- 刘坤可能饲养乌龟（因为我们还有考虑是否相同的跨条件判断）。\n- 王旭饲养乌龟（唯一）。\n- 窦阳饲养乌龟，宠物猪。\n- 仅有刘坤可能为 1种特定条件，因此他需要符合多角色条件我们默认为 \"乌龟 (空预留)\" 。\n\n根据“有人同时饲养乌龟和宠物猪”，而且刘坤必然需要其中一种，我们推到刘坤饲养乌龟。\n\n所以我们最终整理如下定义：\n\n田桂芝：[乌龟]\n刘坤： [乌龟]\n窦阳： [乌龟, 宠物猪]\n王旭： [乌龟]\n\n因此我们可以获得：\n\n结果是: [\\boxed{[\"乌龟\"], [\"乌龟\"], [\"乌龟\", \"宠物猪\"], [\"乌龟\"]}] 。",
+            "ref": "[['乌龟'], ['金鱼'], ['乌龟', '宠物猪'], ['乌龟']]",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.75,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "让我们通过逐步推理来解答这个问题：\n\n1. **梳理已知信息**：\n   - 所有4个女孩每人都养了1到2种宠物，总共3种：仓鼠、宠物猪、蜘蛛。\n   - 有且仅有一种宠物是由4人中的1位养的。\n   - 有且仅有一种宠物是由4人中的3位养的。\n   - 王梅不养仓鼠。\n   - 张瑜养蜘蛛。\n   - 王梅不养宠物猪。\n   - 周伟养仓鼠。\n   - 张瑜和王梅有相同宠物。\n   - 周伟和王梅没有相同宠物。\n   - 没有人同时养蜘蛛和宠物猪，没有同时养仓鼠和宠物猪。\n\n2. **逐步推理**：\n\n   - 既然每人至少养一种宠物，而且周伟养了仓鼠，因此我们可以推断出：至少有一人养仓鼠，而张瑜和王梅都有相同的宠物不是仓鼠，因此这对张瑜和王梅有相同宠物提出更高要求。\n\n3. **分析他们可能养的宠物**：\n\n   - 王梅不养仓鼠和宠物猪，因此王梅只能养蜘蛛。\n   - 张瑜养蜘蛛。\n   - 张瑜和王梅有相同的宠物，因此张瑜和王梅都养蜘蛛，符合4人中有3人养相同宠物这一定律。\n   - 此外，已知王梅不养宠物猪，因此王梅只能养蜘蛛。\n   - 周伟养仓鼠（也符合条件，因为这种宠物有4人中一位养）。\n\n4. **确定李秀英的信息**：\n   - 李秀英饲养了1种宠物，且不包括养了仓鼠和蜘蛛的人，那么她一定养宠物猪。\n\n综上所述，我们可以得出：\n\n- 王梅：蜘蛛\n- 张瑜：蜘蛛\n- 周伟：仓鼠\n- 李秀英：宠物猪\n\n答案为：\\boxed{[[“蜘蛛”, “”], [“蜘蛛”, “”], [“仓鼠”, “”], [“”, “宠物猪”]]}\n\n最终答案为：\n\\boxed{[[“蜘蛛”], [“蜘蛛”], [“仓鼠”], [“宠物猪”]]}",
+            "ref": "[['蜘蛛'], ['蜘蛛'], ['仓鼠'], ['蜘蛛']]",
+            "eval_type": "oua_nominal",
+            "expected_score": 0.375,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "The answer is \\boxed{(('C', 'B'), ('A', 'B'))}",
+            "ref": "(('A', 'B'), ('B', 'C'))",
+            "eval_type": "uua_nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "The answer is \\boxed{(('C', 'B'), ('A', 'B'))}",
+            "ref": "(('A', 'B'), ('B', 'C'))",
+            "eval_type": "uoa_nominal",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "COT: The answer is: \\boxed{[[(3, 2), (3, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)], [(5, 3), (5, 4)]]}",
+            "ref": "[[(3, 2), (3, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)], [(5, 3), (5, 5)]]",
+            "eval_type": "oooa_numeral",
+            "expected_score": 0.9375,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "COT: The answer is: \\boxed{[[(3, 2), (3, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)], [(5, 3), (5, 4)]]}",
+            "ref": "[[(3, 2), (3, 3)], [(5, 4), (5, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)]]",
+            "eval_type": "oooa_numeral",
+            "expected_score": 0.3125,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "COT: The answer is: \\boxed{[[(3, 2), (3, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)], [(5, 3), (5, 4)]]}",
+            "ref": "[[(3, 2), (3, 3)], [(5, 4), (5, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)]]",
+            "eval_type": "ouoa_numeral",
+            "expected_score": 0.375,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "COT: The answer is: \\boxed{[[(3, 2), (3, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)], [(5, 3), (5, 4)]]}",
+            "ref": "[[(3, 2), (3, 3)], [(5, 4), (5, 3)], [(4, 1), (5, 1)], [(3, 5), (4, 5)]]",
+            "eval_type": "uuoa_numeral",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        }
+    ],
+    "combination": [
+        {
+            "pre": "xixihh\\boxed{[[\\\"6\\\", \\\"7\\\"], [\\\"8\\\", \\\"9\\\"], [\\\"7\\\", \\\"9\\\"], [\\\"6\\\", \\\"9\\\"]]} \\boxed{A}\\n$$",
+            "ref": "[['6', '7'], ['8', '9'], ['7', '9'], ['6', '9']]====A",
+            "eval_type": "ooa_numeral,option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{A, 12.5}\\n$$",
+            "ref": "A====125",
+            "eval_type": "option,nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\\boxed{A, 12.5}\\n$$",
+            "ref": "A====125",
+            "eval_type": "option,numeral",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\\boxed{小亮，小明====[12.5, 13]}\\n$$",
+            "ref": "小明,小亮====[12.5, 125]",
+            "eval_type": "ua_nominal,oa_numeral",
+            "expected_score": 0.75,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "**答案：**  \n问题1：相遇的地点距离A地$\\boxed{4.9}$米。  \n问题2：此时A、B两只蚂蚁是$\\boxed{反向}$行走。  \n\n最终回答格式化为：  \n$\\boxed{4.9,反向}$",
+            "ref": "4.9====反向",
+            "eval_type": "numeral,nominal",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "### 最终答案\n第一题：D  \n第二题：D\n\n\\boxed{\\text{D},\\ \\boxed{\\text{D}}}",
+            "ref": "D====D",
+            "eval_type": "option,option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "第一题：...\n\n\\boxed{C}\n\n### 第二题：...不能组成合格插花的。\n\n\\boxed{B} 或者 \\boxed{B}",
+            "ref": "C====B",
+            "eval_type": "option,option",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "第一题：...\n\n\\boxed{208.2}\n\n### 第二题：...这两个规则之间可能存在冲突。\n\n\\boxed{1207.9}",
+            "ref": "208.2====1208.0",
+            "eval_type": "numeral,numeral",
+            "expected_score": 0.97577223,
+            "expected_eval_res": false
+        },
+        {
+            "pre": "\n\n### 最终答案\n\\boxed{\\text{C},\\ \\boxed{\\text{B}},\\ \\boxed{\\text{D}}",
+            "ref": "C====B====D",
+            "eval_type": "option,option,option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": "\n\n### 最终答案\n\\boxed{1. C  2. 2.3  3. D}",
+            "ref": "C====2.3====D",
+            "eval_type": "option,numeral,option",
+            "expected_score": 1.0,
+            "expected_eval_res": true
+        },
+        {
+            "pre": " 问题1的最终答案是：  \n$$\n\\boxed{B}\n.....总密码数：\n$$\n8 + 50 = \\boxed{58}\n$$\n\n---\n\n### 问题2的最终答案是：  \n$$\n\\boxed{58}\n$$",
+            "ref": "B====58",
+            "eval_type": "option,numeral",
+            "expected_score": 0.5,
+            "expected_eval_res": false
+        },
+        {
+            "pre": " 问题答案是：  \n\\boxed{1. 42 \\quad 2.B \\quad 3. 4.14 \\quad 4. 4.32}",
+            "ref": "42====C====4.14====4.32",
+            "eval_type": "numeral,option,numeral,numeral",
+            "expected_score": 0.75,
+            "expected_eval_res": false
+        }
+    ]
+}
